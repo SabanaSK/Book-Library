@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-
 import styles from "./Input.module.css";
 
 const Input = ({ label, type, name, onChange, placeholder }) => {
@@ -22,11 +21,12 @@ const Input = ({ label, type, name, onChange, placeholder }) => {
   );
 };
 
+// Must add require later
 Input.propTypes = {
   label: PropTypes.string,
-  type: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  type: PropTypes.string,
+  name: PropTypes.string,
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
 };
 

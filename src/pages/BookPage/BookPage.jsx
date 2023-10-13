@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const BookPage = (bookItem) => {
   return (
     <div>
@@ -8,5 +10,13 @@ const BookPage = (bookItem) => {
     </div>
   );
 };
-
+// Must add require later
+BookPage.propTypes = {
+	bookItem: PropTypes.shape({
+		image: PropTypes.string,
+		title: PropTypes.string,
+		genre: PropTypes.string,
+		author: PropTypes.string,
+	})
+};
 export default BookPage;
