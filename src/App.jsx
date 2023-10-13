@@ -1,12 +1,12 @@
 import "./App.css";
-import Input from "./components/ui/Input";
 import HomePage from "./pages/HomePage/HomePage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 function App() {
   return (
     <>
       <div>
-        <HomePage/>
-        <Input />
+        <HomePage />
+        <LoginPage />
       </div>
     </>
   );
