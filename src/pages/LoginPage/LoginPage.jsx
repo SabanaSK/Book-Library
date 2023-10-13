@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import styles from "./LoginPage.module.css";
 import Input from "../../components/ui/Input";
+import { Link } from "react-router-dom";
 const LoginPage = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -101,7 +102,9 @@ const LoginPage = () => {
           Login
         </button>
       </form>
-      <button type="button">Register Here</button>
+      <Link to="/register" className={styles.registerButton}>
+        Register Here
+      </Link>
     </div>
   );
 };
