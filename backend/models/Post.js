@@ -35,6 +35,11 @@ class post {
     return post[0];
   }
 
+  static async updateById(id, title, image, genre, author) {
+    const sql = `UPDATE postsbook SET title = ?, image = ?, genre = ?, author = ?  WHERE Id = ?`;
+    await db.execute(sql, [title, image, genre, author, id]);
+  }
+
   static async deleteById(id) {
     const sql = `DELETE FROM postsbook WHERE Id = ?`;
     await db.execute(sql, [id]);
