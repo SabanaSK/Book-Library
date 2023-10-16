@@ -23,6 +23,17 @@ class post {
     const [allPosts] = await db.execute(sql);
     return allPosts;
   }
+
+  static async findById(id) {
+    const sql = `SELECT * FROM postsbook WHERE Id = ?`;
+    const [post] = await db.execute(sql, [id]);
+
+    if (post.length === 0) {
+      return null;
+    }
+
+    return post[0];
+  }
 }
 
 export default post;
