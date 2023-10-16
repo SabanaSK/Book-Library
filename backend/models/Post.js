@@ -1,19 +1,27 @@
 import db from "../config/db.js";
 
 class post {
-  constructor(title, body) {
+  constructor(title, image, genre, author) {
     this.title = title;
-    this.body = body;
+    this.image = image;
+    this.genre = genre;
+    this.author = author;
   }
   async save() {
-    let sql = `INSERT INTO postsbook(title, body) VALUES(?, ?)`;
-    const [newPost] = await db.execute(sql, [this.title, this.body]);
+    let sql = `INSERT INTO postsbook(title, image, genre, author) VALUES(?, ?, ?, ?)`;
+    const [newPost] = await db.execute(sql, [
+      this.title,
+      this.image,
+      this.genre,
+      this.author,
+    ]);
     return newPost;
   }
-  static findAll() {}
-  static findById(id) {
-    let sql = `SELECT * FROM postsbook WHERE Id = ${id};`;
-    return db.execute(sql);
+
+  static async findAll() {
+    const sql = `SELECT * FROM postsbook`;
+    const [allPosts] = await db.execute(sql);
+    return allPosts;
   }
 }
 
