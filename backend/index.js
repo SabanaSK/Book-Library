@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
-import usersRoutes from "./routes/users.js";
+import postRouter from "./routes/postRouter.js";
 
 const app = express();
 dotenv.config();
@@ -15,7 +15,7 @@ const logger = (req, res, next) => {
 app.use(cors());
 app.use(express.json());
 app.use(logger);
-app.use("/api/users", usersRoutes);
+app.use("/api/posts", postRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
