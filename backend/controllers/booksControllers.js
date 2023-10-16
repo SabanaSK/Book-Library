@@ -42,5 +42,17 @@ const createNewPost = async (req, res, next) => {
     next(error);
   }
 };
+const deleteById = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    await Post.deleteById(id);
 
-export default { createNewPost, getAllPosts, getPostById };
+    res.status(200).json({ message: "Post deleted successfully." });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error", error: error.message });
+    next(error);
+  }
+};
+
+export default { createNewPost, getAllPosts, getPostById, deleteById };
