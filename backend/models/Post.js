@@ -34,6 +34,11 @@ class post {
 
     return post[0];
   }
+
+  static async deleteById(id) {
+    const sql = `DELETE FROM postsbook WHERE Id = ?`;
+    await db.execute(sql, [id]);
+  }
 }
 
 export default post;
