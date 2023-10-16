@@ -11,6 +11,23 @@ const getAllPosts = async (req, res, next) => {
   }
 };
 
+const getPostById = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const post = await Post.findById(id);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found." });
+    }
+
+    res.status(200).json(post);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error", error: error.message });
+    next(error);
+  }
+};
+
 const createNewPost = async (req, res, next) => {
   try {
     let { title, image, genre, author } = req.body;
@@ -26,4 +43,4 @@ const createNewPost = async (req, res, next) => {
   }
 };
 
-export default { createNewPost, getAllPosts };
+export default { createNewPost, getAllPosts, getPostById };
