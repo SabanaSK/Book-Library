@@ -42,6 +42,22 @@ const createNewPost = async (req, res, next) => {
     next(error);
   }
 };
+
+const updatePostById = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const { title, image, genre, author } = req.body;
+
+    await Post.updateById(id, title, image, genre, author);
+
+    res.status(200).json({ message: "Post updated successfully." });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error", error: error.message });
+    next(error);
+  }
+};
+
 const deleteById = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -55,4 +71,10 @@ const deleteById = async (req, res, next) => {
   }
 };
 
-export default { createNewPost, getAllPosts, getPostById, deleteById };
+export default {
+  createNewPost,
+  getAllPosts,
+  getPostById,
+  deleteById,
+  updatePostById,
+};
