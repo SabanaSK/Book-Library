@@ -12,8 +12,4 @@ const pool = mysql
   })
   .promise();
 
-const result = await pool.query("SELECT * FROM postsbook");
-
-console.log(result);
-
 export default pool;
