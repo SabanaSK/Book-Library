@@ -2,15 +2,11 @@ import express from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import booksRouter from "./routes/booksRouter.js";
+import logger from "./middleware/logger.js";
 
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT;
-
-const logger = (req, res, next) => {
-  console.log(`${req.method}  ${req.url}`, req.body);
-  next();
-};
 
 app.use(cors());
 app.use(express.json());

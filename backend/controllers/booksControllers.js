@@ -1,8 +1,8 @@
-import Post from "../models/Post.js";
+import Book from "../models/Book.js";
 
 const getAllPosts = async (req, res, next) => {
   try {
-    const posts = await Post.findAll();
+    const posts = await Book.findAll();
     res.status(200).json(posts);
   } catch (error) {
     console.log(error);
@@ -14,7 +14,7 @@ const getAllPosts = async (req, res, next) => {
 const getPostById = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const post = await Post.findById(id);
+    const post = await Book.findById(id);
 
     if (!post) {
       return res.status(404).json({ message: "Post not found." });
@@ -31,7 +31,7 @@ const getPostById = async (req, res, next) => {
 const createNewPost = async (req, res, next) => {
   try {
     let { title, image, genre, author } = req.body;
-    let post = new Post(title, image, genre, author);
+    let post = new Book(title, image, genre, author);
 
     // eslint-disable-next-line no-unused-vars
     post = await post.save();
@@ -48,7 +48,7 @@ const updatePostById = async (req, res, next) => {
     const id = req.params.id;
     const { title, image, genre, author } = req.body;
 
-    await Post.updateById(id, title, image, genre, author);
+    await Book.updateById(id, title, image, genre, author);
 
     res.status(200).json({ message: "Post updated successfully." });
   } catch (error) {
@@ -61,7 +61,7 @@ const updatePostById = async (req, res, next) => {
 const deleteById = async (req, res, next) => {
   try {
     const id = req.params.id;
-    await Post.deleteById(id);
+    await Book.deleteById(id);
 
     res.status(200).json({ message: "Post deleted successfully." });
   } catch (error) {

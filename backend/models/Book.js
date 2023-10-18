@@ -1,6 +1,6 @@
 import db from "../config/db.js";
 
-class post {
+class Book {
   constructor(title, image, genre, author) {
     this.title = title;
     this.image = image;
@@ -46,4 +46,4 @@ class post {
   }
 }
 
-export default post;
+export default Book;
