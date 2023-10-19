@@ -6,7 +6,22 @@ class Book {
     this.image = image;
     this.genre = genre;
     this.author = author;
+    this.ensureTableExists();
   }
+
+  async ensureTableExists() {
+    const createTableSQL = `
+      CREATE TABLE IF NOT EXISTS postsbook (
+        Id INT AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        image VARCHAR(255), 
+        genre VARCHAR(100) NOT NULL,
+        author VARCHAR(100) NOT NULL
+      );
+    `;
+    await db.execute(createTableSQL);
+  }
+
   async save() {
     let sql = `INSERT INTO postsbook(title, image, genre, author) VALUES(?, ?, ?, ?)`;
     const [newPost] = await db.execute(sql, [
