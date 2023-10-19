@@ -7,4 +7,8 @@ router.post("/", usersControllers.createNewUser);
 router.post("/login", usersControllers.login);
 router.post("/autoLogin", usersControllers.autoLogin);
 
+//These two might be delete or edit
+router.get("/", usersControllers.getAllUsers);
+router.delete("/:id", usersControllers.deleteById);
+
 export default router;
