@@ -2,6 +2,11 @@ import { useState, useRef } from "react";
 import styles from "./RegisteruserPage.module.css";
 import Input from "../../components/ui/Input";
 import { Link } from "react-router-dom";
+import {
+  validationUsername,
+  validatePassword,
+  validateEmail,
+} from "../../components/validation/validation";
 
 const RegisteruserPage = () => {
   const [formData, setFormData] = useState({
@@ -10,11 +15,8 @@ const RegisteruserPage = () => {
     password: "",
     confirmPassword: "",
   });
-
   const [errors, setErrors] = useState({});
-
   const formRef = useRef(null);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -22,27 +24,28 @@ const RegisteruserPage = () => {
       [name]: value,
     }));
   };
-
   const validateForm = () => {
     let isValid = true;
-    let tempErrors = {};
-
-    for (let key in formData) {
-      if (!formData[key].trim()) {
-        isValid = false;
-        tempErrors[key] = `${
-          key.charAt(0).toUpperCase() + key.slice(1)
-        } is required`;
-      }
-    }
+    let tempErrors = {
+      email: validateEmail(formData.email),
+      username: validationUsername(formData.username),
+      password: validatePassword(formData.password),
+      confirmPassword: "",
+    };
     if (formData.password !== formData.confirmPassword) {
       isValid = false;
       tempErrors.confirmPassword = "Passwords do not match";
+    }
+    for (let key in tempErrors) {
+      if (tempErrors[key]) {
+        isValid = false;
+      }
     }
 
     setErrors(tempErrors);
     return isValid;
   };
+
   const resetForm = () => {
     if (formRef.current) {
       formRef.current.reset();
@@ -55,17 +58,19 @@ const RegisteruserPage = () => {
       setErrors({});
     }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (validateForm()) {
       console.log("Registration form is valid");
-      //  Handle successful registration logic here, like sending data to the backend
+      // Handle successful registration logic here, like sending data to the backend
       resetForm();
     } else {
       console.log("Registration form has errors");
     }
   };
+
   return (
     <div className={styles.registerUserPage}>
       <h2>Registration Form</h2>
