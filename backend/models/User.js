@@ -9,7 +9,8 @@ class User {
     createdAt,
     updatedAt,
     deletedAt,
-    status
+    status,
+    role
   ) {
     this.id = id;
     this.username = username;
@@ -19,6 +20,7 @@ class User {
     this.updatedAt = updatedAt;
     this.deletedAt = deletedAt;
     this.status = status;
+    this.role = role;
     this.ensureTablesExist();
   }
 
@@ -32,7 +34,8 @@ class User {
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updatedAt TIMESTAMP NULL DEFAULT NULL,
     deletedAt TIMESTAMP NULL DEFAULT NULL,
-    status VARCHAR(50) DEFAULT 'active'
+    status VARCHAR(50) DEFAULT 'active',
+    role VARCHAR(50) DEFAULT 'user' 
   );
 `;
     await db.execute(createUsersTableSQL);
@@ -40,12 +43,13 @@ class User {
 
   async save() {
     const sql = `
-      INSERT INTO users(username, email, password, status) 
-      VALUES(?, ?, ?, 'active')`;
+      INSERT INTO users(username, email, password, status, role) 
+      VALUES(?, ?, ?, 'active', ?)`;
     const [newUser] = await db.execute(sql, [
       this.username,
       this.email,
       this.password,
+      this.role,
     ]);
     this.id = newUser.insertId;
     return this;
@@ -73,7 +77,8 @@ class User {
       user.createdAt,
       user.updatedAt,
       user.deletedAt,
-      user.status
+      user.status,
+      user.role
     );
   }
 
@@ -93,7 +98,8 @@ class User {
       user.createdAt,
       user.updatedAt,
       user.deletedAt,
-      user.status
+      user.status,
+      user.role
     );
   }
 

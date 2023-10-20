@@ -50,8 +50,10 @@ class Token {
   }
 
   static async storeRefreshTokenForUser(userId, token) {
-    const sql = "INSERT INTO tokens(userId, token) VALUES(?, ?)";
-    await db.execute(sql, [userId, token]);
+    const expiryDate = new Date();
+    expiryDate.setDate(expiryDate.getDate() + 7);
+    const sql = "INSERT INTO tokens(userId, token, expiresAt) VALUES(?, ?, ?)";
+    await db.execute(sql, [userId, token, expiryDate]);
   }
 
   static async invalidateRefreshTokenForUser(userId, token) {

@@ -21,7 +21,12 @@ const setupDatabase = async () => {
       null,
       process.env.ADMIN_USERNAME,
       process.env.ADMIN_EMAIL,
-      hashedPassword
+      hashedPassword,
+      null,
+      null,
+      null,
+      "active",
+      "admin"
     );
     await newAdmin.save();
     console.log("Admin user created successfully!");
