@@ -1,12 +1,12 @@
 import db from "../config/db.js";
 
 class Token {
-  constructor(id, user_id, token, issued_at, expires_at, revoked) {
+  constructor(id, userId, token, issuedAt, expiresAt, revoked) {
     this.id = id;
-    this.user_id = user_id;
+    this.userId = userId;
     this.token = token;
-    this.issued_at = issued_at;
-    this.expires_at = expires_at;
+    this.issuedAt = issuedAt;
+    this.expiresAt = expiresAt;
     this.revoked = revoked;
     this.ensureTokenTableExist();
   }
@@ -14,13 +14,13 @@ class Token {
   async ensureTokenTableExist() {
     const createTokensTableSQL = `
       CREATE TABLE IF NOT EXISTS tokens (
-        token_id INT AUTO_INCREMENT PRIMARY KEY,
-        user_id INT NOT NULL,
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        userId INT NOT NULL,
         token VARCHAR(512) UNIQUE NOT NULL,  
-        issued_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-        expires_at TIMESTAMP NOT NULL,
+        issuedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        expiresAt TIMESTAMP NOT NULL,
         revoked BOOLEAN DEFAULT FALSE,       
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (userId) REFERENCES users(id)
       );
     `;
     await db.execute(createTokensTableSQL);
@@ -28,15 +28,35 @@ class Token {
 
   async save() {
     const sql =
-      "INSERT INTO tokens(user_id, token, expires_at, revoked) VALUES(?, ?, ?, ?)";
+      "INSERT INTO tokens(userId, token, expiresAt, revoked) VALUES(?, ?, ?, ?)";
     const [newToken] = await db.execute(sql, [
-      this.user_id,
+      this.userId,
       this.token,
-      this.expires_at,
+      this.expiresAt,
       this.revoked,
     ]);
     this.id = newToken.insertId;
     return this;
+  }
+
+  static async findRefreshTokenForUser(userId, token) {
+    const sql = "SELECT token FROM tokens WHERE userId = ? AND token = ?";
+    const [tokens] = await db.execute(sql, [userId, token]);
+
+    if (tokens.length === 0) {
+      return null;
+    }
+    return tokens[0].token;
+  }
+
+  static async storeRefreshTokenForUser(userId, token) {
+    const sql = "INSERT INTO tokens(userId, token) VALUES(?, ?)";
+    await db.execute(sql, [userId, token]);
+  }
+
+  static async invalidateRefreshTokenForUser(userId, token) {
+    const sql = "DELETE FROM tokens WHERE userId = ? AND token = ?";
+    await db.execute(sql, [userId, token]);
   }
 }
 

@@ -1,28 +1,47 @@
 import db from "../config/db.js";
 
 class User {
-  constructor(id, username, email, password) {
+  constructor(
+    id,
+    username,
+    email,
+    password,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    status
+  ) {
     this.id = id;
     this.username = username;
     this.email = email;
     this.password = password;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.deletedAt = deletedAt;
+    this.status = status;
     this.ensureTablesExist();
   }
 
   async ensureTablesExist() {
     const createUsersTableSQL = `
-      CREATE TABLE IF NOT EXISTS users (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(255) NOT NULL,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL
-      );
-    `;
+  CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP NULL DEFAULT NULL,
+    deletedAt TIMESTAMP NULL DEFAULT NULL,
+    status VARCHAR(50) DEFAULT 'active'
+  );
+`;
     await db.execute(createUsersTableSQL);
   }
+
   async save() {
-    const sql = "INSERT INTO users(username, email, password) VALUES(?, ?, ?)";
-    console.log(this.username, this.email, this.password);
+    const sql = `
+      INSERT INTO users(username, email, password, status) 
+      VALUES(?, ?, ?, 'active')`;
     const [newUser] = await db.execute(sql, [
       this.username,
       this.email,
@@ -37,6 +56,7 @@ class User {
     const [allUsers] = await db.execute(sql);
     return allUsers;
   }
+
   static async findByEmail(email) {
     const sql = "SELECT * FROM users WHERE email = ?";
     const [users] = await db.execute(sql, [email]);
@@ -45,7 +65,16 @@ class User {
       return null;
     }
     const user = users[0];
-    return new User(user.id, user.username, user.email, user.password);
+    return new User(
+      user.id,
+      user.username,
+      user.email,
+      user.password,
+      user.createdAt,
+      user.updatedAt,
+      user.deletedAt,
+      user.status
+    );
   }
 
   static async findById(id) {
@@ -56,32 +85,21 @@ class User {
       return null;
     }
     const user = users[0];
-    return new User(user.id, user.username, user.email, user.password);
+    return new User(
+      user.id,
+      user.username,
+      user.email,
+      user.password,
+      user.createdAt,
+      user.updatedAt,
+      user.deletedAt,
+      user.status
+    );
   }
 
   static async deleteById(id) {
     const sql = `DELETE FROM users WHERE Id = ?`;
     await db.execute(sql, [id]);
-  }
-
-  static async findRefreshTokenForUser(userId, token) {
-    const sql = "SELECT token FROM tokens WHERE user_id = ? AND token = ?";
-    const [tokens] = await db.execute(sql, [userId, token]);
-
-    if (tokens.length === 0) {
-      return null;
-    }
-    return tokens[0].token;
-  }
-
-  static async storeRefreshTokenForUser(userId, token) {
-    const sql = "INSERT INTO tokens(user_id, token) VALUES(?, ?)";
-    await db.execute(sql, [userId, token]);
-  }
-
-  static async invalidateRefreshTokenForUser(userId, token) {
-    const sql = "DELETE FROM tokens WHERE user_id = ? AND token = ?";
-    await db.execute(sql, [userId, token]);
   }
 }
 

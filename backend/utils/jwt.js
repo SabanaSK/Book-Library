@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import Token from "../models/Token.js";
 
 const generateAccessToken = (user) => {
   const payload = {
@@ -20,6 +21,15 @@ const generateRefreshToken = (user) => {
   });
 };
 
+const generateAndStoreTokens = async (user) => {
+  const accessToken = generateAccessToken(user);
+  const refreshToken = generateRefreshToken(user);
+
+  await Token.storeRefreshTokenForUser(user.id, refreshToken);
+
+  return { accessToken, refreshToken };
+};
+
 const verifyAccessToken = (token) => {
   return jwt.verify(token, process.env.JWT_KEY);
 };
@@ -30,6 +40,7 @@ const verifyRefreshToken = (token) => {
 export {
   generateAccessToken,
   generateRefreshToken,
+  generateAndStoreTokens,
   verifyAccessToken,
   verifyRefreshToken,
 };
