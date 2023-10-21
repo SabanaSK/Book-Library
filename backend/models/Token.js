@@ -43,6 +43,14 @@ class Token {
     const [allTokens] = await db.execute(sql);
     return allTokens;
   }
+  static async findIdByToken(refreshToken) {
+    const sql = "SELECT id FROM tokens WHERE token = ?";
+    const [tokens] = await db.execute(sql, [refreshToken]);
+    if (tokens.length === 0) {
+      return null;
+    }
+    return tokens[0].id;
+}
 
   static async findRefreshTokenForUser(userId, token) {
     const sql = "SELECT token FROM tokens WHERE userId = ? AND token = ?";

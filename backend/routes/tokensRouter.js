@@ -3,10 +3,10 @@ import tokensControllers from "../controllers/tokensControllers.js";
 
 const router = express.Router();
 
-//might be delete
+//Will be delete, having it here just for check
 router.get("/", tokensControllers.getAllRefreshToken);
 
-router.delete("/logout/:id", tokensControllers.deleteTokenById);
-router.delete("/logoutAll/:id", tokensControllers.deleteAllTokenByUserId);
+router.delete("/logout", tokensControllers.logout);
+router.delete("/logoutAllPlace/:id", tokensControllers.logoutAllPlace);
 
 export default router;
