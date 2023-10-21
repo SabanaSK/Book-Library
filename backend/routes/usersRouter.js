@@ -3,7 +3,7 @@ import usersControllers from "../controllers/usersControllers.js";
 
 const router = express.Router();
 
-router.post("/login", usersControllers.login);
+router.post("/login", usersControllers.login);  
 router.post("/autoLogin", usersControllers.autoLogin);
 
 //These two might be delete or edit

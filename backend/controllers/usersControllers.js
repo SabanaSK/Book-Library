@@ -5,7 +5,7 @@ import {
   generateAccessToken,
   generateAndStoreTokens,
   verifyRefreshToken,
-} from "../utils/jwt.js";
+} from "../middleware/jwt.js";
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
