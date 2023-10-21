@@ -38,6 +38,19 @@ class Token {
     this.id = newToken.insertId;
     return this;
   }
+  static async findAll() {
+    const sql = `SELECT * FROM tokens`;
+    const [allTokens] = await db.execute(sql);
+    return allTokens;
+  }
+  static async findIdByToken(refreshToken) {
+    const sql = "SELECT id FROM tokens WHERE token = ?";
+    const [tokens] = await db.execute(sql, [refreshToken]);
+    if (tokens.length === 0) {
+      return null;
+    }
+    return tokens[0].id;
+}
 
   static async findRefreshTokenForUser(userId, token) {
     const sql = "SELECT token FROM tokens WHERE userId = ? AND token = ?";
@@ -59,6 +72,16 @@ class Token {
   static async invalidateRefreshTokenForUser(userId, token) {
     const sql = "DELETE FROM tokens WHERE userId = ? AND token = ?";
     await db.execute(sql, [userId, token]);
+  }
+
+  static async deleteById(id) {
+    const sql = `DELETE FROM tokens WHERE Id = ?`;
+    await db.execute(sql, [id]);
+  }
+
+  static async deleteByUserId(userId) {
+    const sql = `DELETE FROM tokens WHERE UserId = ?`;
+    await db.execute(sql, [userId]);
   }
 }
 

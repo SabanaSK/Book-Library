@@ -5,7 +5,7 @@ import {
   generateAccessToken,
   generateAndStoreTokens,
   verifyRefreshToken,
-} from "../utils/jwt.js";
+} from "../middleware/jwt.js";
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -59,26 +59,6 @@ const autoLogin = async (req, res, next) => {
   }
 };
 
-const logout = async (req, res, next) => {
-  const refreshToken = req.cookies.refreshToken;
-
-  if (!refreshToken) {
-    return res.status(400).json({ message: "No refresh token provided" });
-  }
-
-  try {
-    const decodedToken = verifyRefreshToken(refreshToken);
-    const userId = decodedToken.user.id;
-
-    await Token.invalidateRefreshTokenForUser(userId, refreshToken);
-    res.clearCookie("refreshToken");
-    res.status(200).json({ message: "Successfully logged out" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error", error: error.message });
-    next(error);
-  }
-};
 
 const getAllUsers = async (req, res, next) => {
   try {
@@ -107,6 +87,5 @@ export default {
   login,
   autoLogin,
   getAllUsers,
-  deleteById,
-  logout,
+  deleteById
 };

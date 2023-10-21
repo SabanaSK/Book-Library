@@ -30,11 +30,12 @@ const getPostById = async (req, res, next) => {
 
 const createNewPost = async (req, res, next) => {
   try {
-    let { title, image, genre, author } = req.body;
-    let post = new Book(title, image, genre, author);
+    const { title, genre, author } = req.body;
+    const userId = req.user.id;
 
-    // eslint-disable-next-line no-unused-vars
-    post = await post.save();
+    let book = new Book(title, genre, author, userId);
+    await book.save(userId);
+
     res.status(201).json({ message: "Post created" });
   } catch (error) {
     console.log(error);
