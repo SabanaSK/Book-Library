@@ -78,6 +78,9 @@ const LoginPage = () => {
       console.log("Form has errors");
     }
   };
+  const handleForgotPasswordClick = () => {
+    navigate("/forgot");
+  };
 
   return (
     <div className={styles.loginPage}>
@@ -106,6 +109,11 @@ const LoginPage = () => {
           Login
         </button>
       </form>
+      <button
+        onClick={handleForgotPasswordClick}
+        className={styles.forgotButton}>
+        forgot password
+      </button>
       <Link to="/register" className={styles.registerButton}>
         Register Here
       </Link>
