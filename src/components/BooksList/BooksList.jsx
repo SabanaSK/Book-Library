@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { getAllBooks } from "../../services/bookService";
 import Book from "../Book/Book";
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("/api/books")
+    getAllBooks()
       .then((res) => {
         setBooks(res.data);
       })
