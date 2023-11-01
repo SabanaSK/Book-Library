@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { getBookById } from "../../services/bookService";
 import { useEffect, useState } from "react";
 
 const BookPage = () => {
@@ -8,8 +8,7 @@ const BookPage = () => {
   const [book, setBook] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`/api/books/${bookId}`)
+    getBookById(bookId)
       .then((res) => {
         setBook(res.data);
       })
@@ -17,6 +16,7 @@ const BookPage = () => {
         console.error("Error fetching book by id:", error);
       });
   }, [bookId]);
+
 
   return (
     <div>

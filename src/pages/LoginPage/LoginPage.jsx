@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import styles from "./LoginPage.module.css";
 import Input from "../../components/ui/Input";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { loginUser } from "../../services/bookService";
 import {
   validateEmail,
   validatePassword,
@@ -33,19 +33,17 @@ const LoginPage = () => {
 
   const checkAuthentication = async (email, password) => {
     try {
-      const response = await axios.post("/api/users/login", {
-        email: email,
-        password: password,
-      });
+      const response = await loginUser(email, password);
       if (response.data && response.data.accessToken) {
         localStorage.setItem("accessToken", response.data.accessToken);
         return true;
       }
     } catch (error) {
-      console.error("Error during login:", error.response.data.message);
+      console.error("Error during login:", error.response ? error.response.data.message : error.message);
       return false;
     }
   };
+  
 
   const validateForm = async () => {
     let isValid = true;
@@ -89,7 +87,7 @@ const LoginPage = () => {
     if (await validateForm()) {
       console.log("Form is valid");
       resetForm();
-      navigate("/");
+      navigate("/home");
     } else {
       console.log("Form has errors");
     }
@@ -128,7 +126,8 @@ const LoginPage = () => {
       </form>
       <button
         onClick={handleForgotPasswordClick}
-        className={styles.forgotButton}>
+        className={styles.forgotButton}
+      >
         forgot password
       </button>
       <Link to="/register" className={styles.registerButton}>
