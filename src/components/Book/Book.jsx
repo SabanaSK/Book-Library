@@ -1,19 +1,27 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-const Book = (book) => (
-  <div>
-      <img src={book.image} alt={book.title} />
-      <p>{book.title}</p>
-  </div>
-);
+const Book = ({ book }) => {
+  
+  return (
+    <div>
+      <Link to={`/book/${book.Id}`}>
+        <p>Id {book.Id}</p>
+        <p>Title: {book.title}</p>
+        <p>Genre: {book.genre}</p>
+        <p>Author: {book.author}</p>
+      </Link>
+    </div>
+  );
+};
 
-// Must add require later
 Book.propTypes = {
-	book: PropTypes.shape({
-		id: PropTypes.number,
-		image: PropTypes.string,
-		title: PropTypes.string,
-	})
+  book: PropTypes.shape({
+    Id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Book;
