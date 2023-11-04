@@ -129,7 +129,7 @@ const LoginPage = () => {
       <button
         onClick={handleForgotPasswordClick}
         className={styles.forgotButton}>
-        forgot password
+        Forgot password
       </button>
       <Link to="/register" className={styles.registerButton}>
         Register Here
