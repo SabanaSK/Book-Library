@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+body {
+  background: linear-gradient(135deg, #EC578E, #673AB7);
+}
+
+.loginPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+}
+
+h2 {
+  color: #FFFFFF;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+form {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="text"],
+input[type="password"] {
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border: 1px solid #FFFFFF;
+  background: transparent;
+  border-radius: 4px;
+  outline: none;
+  color: #FFFFFF;
+  font-size: 1rem;
+  transition: border-color 0.3s ease-in-out;
+  width: 300px;
+}
+
+label {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #f4e4e4;
+  padding: 20px;
+}
+
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #EC578E;
+  padding-left: 30px;
+  width: 100px;
+}
+
+.error {
+  color: #FF5252;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.submitButton,
+.forgotButton,
+.registerButton {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background: #EC578E;
+  color: #FFFFFF;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.submitButton:hover,
+.forgotButton:hover,
+.registerButton:hover {
+  background: #D64481;
+}
+
+.registerButton {
+  align-self: center;
+  background: transparent;
+  border: 1px solid #FFFFFF;
+  text-decoration: none;
+}
+
+.forgotButton {
+  align-self: flex-center;
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  text-decoration: underline;
+}
