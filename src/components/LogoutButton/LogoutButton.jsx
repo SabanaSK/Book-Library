@@ -1,13 +1,16 @@
-import { logoutUser } from "../../services/bookService";
+import { logoutUser } from "../../services/userServices";
 
 const LogoutButton = () => {
   const handleLogout = async () => {
     try {
       await logoutUser();
       localStorage.removeItem("accessToken");
-      window.location.href = "/login"; 
-    }catch (error) {
-      console.error("Error during logout:", error.response ? error.response.data.message : error.message);
+      window.location.href = "/login";
+    } catch (error) {
+      console.error(
+        "Error during logout:",
+        error.response ? error.response.data.message : error.message
+      );
     }
   };
 
