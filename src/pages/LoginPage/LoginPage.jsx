@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import styles from "./LoginPage.module.css";
 import Input from "../../components/ui/Input";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/userServices";
 import {
   validateEmail,
@@ -128,12 +128,10 @@ const LoginPage = () => {
       </form>
       <button
         onClick={handleForgotPasswordClick}
-        className={styles.forgotButton}>
+        className={styles.forgotButton}
+      >
         Forgot password
       </button>
-      <Link to="/register" className={styles.registerButton}>
-        Register Here
-      </Link>
     </div>
   );
 };

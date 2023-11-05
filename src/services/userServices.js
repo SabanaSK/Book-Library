@@ -4,6 +4,13 @@ export const inviteUserByEmail = (username, email) => {
   return api.post("/users/invite", { username, email });
 };
 
+export const Register = (inviteToken, password) => {
+  return api.post("/users/register?token=${inviteToken}", {
+    inviteToken,
+    password,
+  });
+};
+
 export const loginUser = (email, password) =>
   api.post("/users/login", { email, password });
 

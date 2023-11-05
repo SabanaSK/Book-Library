@@ -32,7 +32,7 @@ instance.interceptors.response.use(
           console.error(error);
         }
       } else {
-        window.location = "/login";
+        window.location = "/";
       }
     }
     return Promise.reject(error);

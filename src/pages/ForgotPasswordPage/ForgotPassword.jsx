@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styles from "./ForgotPassword.module.css";
 import Input from "../../components/ui/Input";
 import { validateEmail } from "../../components/validation/validation";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +28,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className={styles.forgotPasswordContainer}>
+    <div>
       <h2>Forgot Password</h2>
       <form onSubmit={handleSubmit}>
         <Input
@@ -39,7 +38,7 @@ const ForgotPassword = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
         />
-        {error && <p className={styles.error}>{error}</p>}
+        {error && <p>{error}</p>}
         <button type="submit">Send Link</button>
       </form>
       {message && <p>{message}</p>}

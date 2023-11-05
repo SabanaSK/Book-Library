@@ -1,5 +1,5 @@
 import { useState } from "react";
-import InviteUser from "../../components/Admin/InviteUser";
+import InviteUser from "../../components/InviteUser/InviteUser";
 
 const AdminPage = () => {
   const [showInviteModal, setShowInviteModal] = useState(false);

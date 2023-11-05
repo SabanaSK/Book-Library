@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Input from "../../components/ui/Input";
 import { validatePassword } from "../../components/validation/validation";
-import styles from "./ResetPassword.module.css";
+
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -46,7 +46,7 @@ const ResetPassword = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter your new password"
         />
-        {errors.password && <p className={styles.error}>{errors.password}</p>}
+        {errors.password && <p>{errors.password}</p>}
         <Input
           label="Confirm Password"
           type="password"
@@ -55,7 +55,7 @@ const ResetPassword = () => {
           placeholder="Confirm your new password"
         />
         {errors.confirmPassword && (
-          <p className={styles.error}>{errors.confirmPassword}</p>
+          <p>{errors.confirmPassword}</p>
         )}
         <button type="submit">Reset Password</button>
       </form>
