@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
-import { getBookById } from "../../services/bookService";
+import { getBookById } from "../../services/bookServices";
 import { useEffect, useState } from "react";
 
 const BookPage = () => {
@@ -16,7 +16,6 @@ const BookPage = () => {
         console.error("Error fetching book by id:", error);
       });
   }, [bookId]);
-
 
   return (
     <div>
