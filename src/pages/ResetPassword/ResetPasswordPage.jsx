@@ -5,63 +5,81 @@ import { resetPassword } from "../../services/userServices";
 
 const ResetPasswordPage = () => {
   const [resetToken, setResetToken] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({ password: "", confirmPassword: "" });
+  const [formData, setFormData] = useState({
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
+  const formRef = useRef(null);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.hash.split("?")[1]);
     const token = queryParams.get("token");
     if (token) setResetToken(token);
   }, []);
-  const formRef = useRef(null);
-  const resetForm = () => {
-    setNewPassword("");
-    setConfirmPassword("");
-    setErrors({ password: "", confirmPassword: "" });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
+
+  const validateForm = () => {
+    let isValid = true;
+    let tempErrors = {};
+
+    tempErrors.newPassword = validatePassword(formData.newPassword);
+
+    tempErrors.confirmPassword =
+      formData.newPassword !== formData.confirmPassword
+        ? "Passwords do not match."
+        : "";
+
+    setErrors(tempErrors);
+
+    isValid = !Object.values(tempErrors).some((error) => error);
+
+    return isValid;
+  };
+
+  const resetForm = () => {
+    setFormData({ newPassword: "", confirmPassword: "" });
+    setErrors({});
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //recheck the error message
+
     if (!resetToken) {
       setMessage("Invalid reset token. Please check your link and try again.");
       return;
     }
 
-    if (!newPassword || !confirmPassword) {
-      setMessage("Both password fields are required.");
-      return;
-    }
-    const newPasswordError = validatePassword(newPassword);
-    const confirmPasswordError =
-      newPassword !== confirmPassword ? "Passwords do not match." : "";
-
-    if (newPasswordError || confirmPasswordError) {
-      setErrors({
-        newPassword: newPasswordError,
-        confirmPassword: confirmPasswordError,
-      });
-      return;
-    }
-    try {
-      const response = await resetPassword(
-        resetToken,
-        newPassword,
-        confirmPassword
-      );
-      console.log(response.message);
-      if (response.success) {
-        setMessage("Your password has been reset successfully.");
-        resetForm();
-      } else {
-        console.log("my message", response.message);
-        setMessage(
-          response.message || "An error occurred while resetting your password."
+    if (validateForm()) {
+      try {
+        const response = await resetPassword(
+          resetToken,
+          formData.newPassword,
+          formData.confirmPassword
         );
+
+        if (response) {
+          setMessage("Your password has been reset successfully.");
+          resetForm();
+        } else {
+          setMessage(
+            response.message ||
+              "An error occurred while resetting your password."
+          );
+        }
+      } catch (error) {
+        setMessage("An error occurred while resetting your password.");
       }
-    } catch (error) {
-      setMessage("An error occurred while resetting your password.");
+    } else {
+      setMessage("Please correct the errors before submitting.");
     }
   };
 
@@ -72,17 +90,19 @@ const ResetPasswordPage = () => {
         <Input
           label="New Password"
           type="password"
-          name="password"
-          onChange={(e) => setNewPassword(e.target.value)}
+          name="newPassword"
+          onChange={handleInputChange}
           placeholder="Enter your new password"
+          value={formData.newPassword}
         />
-        {errors.password && <p>{errors.password}</p>}
+        {errors.newPassword && <p>{errors.newPassword}</p>}
         <Input
           label="Confirm Password"
           type="password"
           name="confirmPassword"
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          onChange={handleInputChange}
           placeholder="Confirm your new password"
+          value={formData.confirmPassword}
         />
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button type="submit">Reset Password</button>
