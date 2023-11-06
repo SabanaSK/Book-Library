@@ -4,3 +4,42 @@
   padding: 2rem;
   text-align: center;
 }
+
+:root {
+  --white-font-color: #fff;
+  --background-button: #ec578e;
+  --background-button-hover: #d64481;
+  --background-form: #D782E0;
+  --font-family: helvetica, arial, sans-serif;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  .error {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+  }
+}
+
+input[type="text"],
+input[type="password"] {
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border: 1px solid #fff;
+  background: transparent;
+  border-radius: 4px;
+  outline: none;
+  color: white;
+  font-size: 1rem;
+  transition: border-color 0.3s ease-in-out;
+}
+
+form {
+  padding: 2rem;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+
+}
