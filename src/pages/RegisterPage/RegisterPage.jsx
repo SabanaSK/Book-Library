@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import Input from "../../components/ui/Input";
 import { validatePassword } from "../../components/validation/validation";
 import { Register } from "../../services/userServices";
@@ -7,15 +7,16 @@ import { Register } from "../../services/userServices";
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     password: "",
-    confirmPassword: "", 
+    confirmPassword: "",
   });
   const [inviteToken, setInviteToken] = useState(null);
   const [errors, setErrors] = useState({});
   const formRef = useRef(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const token = new URLSearchParams(window.location.search).get("token");
+    const queryParams = new URLSearchParams(window.location.hash.split("?")[1]);
+    const token = queryParams.get("token");
     if (token) setInviteToken(token);
   }, []);
 
@@ -69,14 +70,13 @@ const RegisterPage = () => {
 
         if (response.data.message === "Registration completed successfully.") {
           console.log("Registration successful");
-          navigate("/"); 
+          navigate("/");
         } else {
           console.log("Error during registration:", response.data.message);
         }
       } catch (error) {
         console.error("API call failed:", error);
       }
-
       resetForm();
     } else {
       console.log("Form has errors");
@@ -93,7 +93,7 @@ const RegisterPage = () => {
           name="password"
           onChange={handleInputChange}
           placeholder="Choose a password"
-          value={formData.password} 
+          value={formData.password}
         />
         {errors.password && <p>{errors.password}</p>}
 
@@ -103,15 +103,11 @@ const RegisterPage = () => {
           name="confirmPassword"
           onChange={handleInputChange}
           placeholder="Confirm your password"
-          value={formData.confirmPassword} 
+          value={formData.confirmPassword}
         />
-        {errors.confirmPassword && (
-          <p>{errors.confirmPassword}</p>
-        )}
+        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
 
-        <button type="submit">
-          Register
-        </button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
