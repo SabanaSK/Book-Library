@@ -1,14 +1,12 @@
 import { useState } from "react";
 import Input from "../../components/ui/Input";
 import { validateEmail } from "../../components/validation/validation";
-import { useNavigate } from "react-router-dom";
+import { forgotPassword } from "../../services/userServices";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,9 +19,18 @@ const ForgotPassword = () => {
       setError("");
     }
 
-    // TODO: Temporarily mocking backend interaction, Once backend is set then need to write logic accordingly
     if (email) {
-      setMessage("A reset link has been sent to your email (mock response)."); // once banckend is ready take out mock
+      try {
+        const response = await forgotPassword(email);
+        if (response.status === 200) {
+          setMessage("Invitation sent successfully.");
+          setEmail("");
+        } else {
+          setError("Failed to send invitation.");
+        }
+      } catch (error) {
+        setError(error.response?.data?.message || "An error occurred.");
+      }
     }
   };
 
@@ -42,12 +49,6 @@ const ForgotPassword = () => {
         <button type="submit">Send Link</button>
       </form>
       {message && <p>{message}</p>}
-      {message && (
-        <button onClick={() => navigate("/reset-password")}>
-          Go to Reset Page (Mock button)
-          {/* No need when backend is done */}
-        </button>
-      )}
     </div>
   );
 };

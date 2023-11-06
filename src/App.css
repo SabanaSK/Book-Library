@@ -21,7 +21,7 @@ input[type="password"] {
   background: transparent;
   border-radius: 4px;
   outline: none;
-  color: white;
+  color: black;
   font-size: 1rem;
   transition: border-color 0.3s ease-in-out;
 }
