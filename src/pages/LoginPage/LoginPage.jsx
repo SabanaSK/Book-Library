@@ -100,7 +100,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className={styles.loginPage}>
+    <div className={styles["login-Page"]}>
       <h2>Login</h2>
       <form onSubmit={handleSubmit} ref={formRef}>
         <Input
@@ -110,7 +110,7 @@ const LoginPage = () => {
           onChange={handleInputChange}
           placeholder="Enter your email"
         />
-        {errors.email && <p className={styles.error}>{errors.email}</p>}
+        {errors.email && <p className={styles["error"]}>{errors.email}</p>}
         <Input
           label="Password"
           type="password"
@@ -118,18 +118,19 @@ const LoginPage = () => {
           onChange={handleInputChange}
           placeholder="Enter your password"
         />
-        {errors.password && <p className={styles.error}>{errors.password}</p>}
-        {errors.genericError && (
-          <p className={styles.error}>{errors.genericError}</p>
+        {errors.password && (
+          <p className={styles["error"]}>{errors.password}</p>
         )}
-        <button type="submit" className={styles.submitButton}>
+        {errors.genericError && (
+          <p className={styles["error"]}>{errors.genericError}</p>
+        )}
+        <button type="submit" className={styles["submitButton"]}>
           Login
         </button>
       </form>
       <button
         onClick={handleForgotPasswordClick}
-        className={styles.forgotButton}
-      >
+        className={styles["forgot-Button"]}>
         Forgot password
       </button>
     </div>
