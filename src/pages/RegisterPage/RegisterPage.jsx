@@ -2,12 +2,11 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/ui/Input";
 import { validatePassword } from "../../components/validation/validation";
-import { Register } from "../../services/userServices";
+import { register } from "../../services/userServices";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     password: "",
-    confirmPassword: "",
   });
   const [inviteToken, setInviteToken] = useState(null);
   const [errors, setErrors] = useState({});
@@ -32,13 +31,7 @@ const RegisterPage = () => {
     let isValid = true;
     let tempErrors = {
       password: validatePassword(formData.password),
-      confirmPassword: "",
     };
-
-    if (formData.password !== formData.confirmPassword) {
-      isValid = false;
-      tempErrors.confirmPassword = "Passwords do not match";
-    }
 
     for (let key in tempErrors) {
       if (tempErrors[key]) {
@@ -55,7 +48,6 @@ const RegisterPage = () => {
       formRef.current.reset();
       setFormData({
         password: "",
-        confirmPassword: "",
       });
       setErrors({});
     }
@@ -66,7 +58,7 @@ const RegisterPage = () => {
 
     if (validateForm()) {
       try {
-        const response = await Register(inviteToken, formData.password);
+        const response = await register(inviteToken, formData.password);
 
         if (response.data.message === "Registration completed successfully.") {
           console.log("Registration successful");
@@ -96,16 +88,6 @@ const RegisterPage = () => {
           value={formData.password}
         />
         {errors.password && <p>{errors.password}</p>}
-
-        <Input
-          label="Confirm Password"
-          type="password"
-          name="confirmPassword"
-          onChange={handleInputChange}
-          placeholder="Confirm your password"
-          value={formData.confirmPassword}
-        />
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
 
         <button type="submit">Register</button>
       </form>

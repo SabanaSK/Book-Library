@@ -5,7 +5,7 @@ import BookPage from "./pages/BookPage/BookPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import ForgotPassword from "./pages/ForgotPasswordPage/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import ResetPasswordPage from "./pages/ResetPassword/ResetPasswordPage";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
         <Route path="/book/:bookId" element={<BookPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
       </Routes>
     </div>
   );
