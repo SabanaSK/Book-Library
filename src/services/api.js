@@ -27,11 +27,15 @@ instance.interceptors.response.use(
       if (error.response.data.message === "Token is not valid") {
         try {
           const response = await autoLogin();
-          console.log(response);
+          console.log("fetching autologin", response);
         } catch (error) {
-          console.error(error);
+          //Add what the page should show
+          console.log("Permission denied, no refreshtoken ");
+          localStorage.removeItem("accessToken");
         }
       } else {
+        console.log("Response data is not 401", error.response.data.message);
+        localStorage.removeItem("accessToken");
         window.location = "/";
       }
     }
