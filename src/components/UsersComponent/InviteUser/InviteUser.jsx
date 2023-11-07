@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { inviteUserByEmail } from "../../services/userServices";
+import { inviteUserByEmail } from "../../../services/userServices";
 
 const InviteUserPage = () => {
   const [username, setUsername] = useState("");

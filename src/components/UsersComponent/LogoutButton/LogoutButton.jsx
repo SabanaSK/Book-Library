@@ -1,4 +1,4 @@
-import { logoutUser } from "../../services/userServices";
+import { logoutUser } from "../../../services/userServices";
 
 const LogoutButton = () => {
   const handleLogout = async () => {

@@ -1,13 +1,13 @@
-import BookList from "../../components/BooksList/BooksList";
-import LogoutButton from "../../components/LogoutButton/LogoutButton";
-import AdminPage from "../AdminPage/AdminPage";
+import BookList from "../../components/BooksComponent/BooksList/BooksList";
+import LogoutButton from "../../components/UsersComponent/LogoutButton/LogoutButton";
+import AdminUsersPage from "../AdminUsersPage/AdminUsersPage";
 
 const HomePage = () => {
   return (
     <div>
       <p>Home Page</p>
       <p>Welcome to Book Library</p>
-      <AdminPage />
+      <AdminUsersPage />
       <BookList />
       <LogoutButton />
     </div>

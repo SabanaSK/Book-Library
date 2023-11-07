@@ -31,11 +31,12 @@ instance.interceptors.response.use(
         } catch (error) {
           //Add what the page should show
           console.log("Permission denied, no refreshtoken ");
-          localStorage.removeItem("accessToken");
+          /*    localStorage.removeItem("accessToken"); */
+          /*    window.location = "/"; */
         }
       } else {
         console.log("Response data is not 401", error.response.data.message);
-        localStorage.removeItem("accessToken");
+        /*  localStorage.removeItem("accessToken"); */
         window.location = "/";
       }
     }

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import InviteUser from "../../components/InviteUser/InviteUser";
+import InviteUser from "../../components/UsersComponent/InviteUser/InviteUser";
 
-const AdminPage = () => {
+const AdminUsersPage = () => {
   const [showInviteModal, setShowInviteModal] = useState(false);
 
   const handleInviteClick = () => {
@@ -22,4 +22,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default AdminUsersPage;
