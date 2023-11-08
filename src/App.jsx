@@ -9,11 +9,21 @@ import ResetPasswordPage from "./pages/ResetPassword/ResetPasswordPage";
 import { UserContextProvider } from "./context/UserContext";
 
 function AuthenticatedRoutes() {
+import AdminBooksPage from "./pages/AdminBooksPage/AdminBooksPage";
+import CreateBooks from "./components/BooksComponent/Create Books/CretaeBooks";
+import EditBook from "./components/BooksComponent/EditBooks/EditBooks";
+function App() {
   return (
     <UserContextProvider>
       <Routes>
         <Route path="/home" element={<HomePage />} />
         <Route path="/book/:bookId" element={<BookPage />} />
+        <Route path="/admin" element={<AdminBooksPage />} />
+        <Route path="/admin/create-book" element={<CreateBooks />} />
+        <Route path="/admin/edit-book/:bookId" element={<EditBook />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
       </Routes>
     </UserContextProvider>
   );

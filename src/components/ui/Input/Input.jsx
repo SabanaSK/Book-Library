@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./Input.module.css";
 
-const Input = ({ label, type, name, onChange, placeholder }) => {
+const Input = ({ label, type, name, value, onChange, placeholder }) => {
   return (
     <div className={styles.inputGroup}>
       {label && (
@@ -13,6 +13,7 @@ const Input = ({ label, type, name, onChange, placeholder }) => {
         type={type}
         name={name}
         id={name}
+        value={value || ""}
         onChange={onChange}
         placeholder={placeholder}
         className={styles.input}
@@ -25,6 +26,7 @@ const Input = ({ label, type, name, onChange, placeholder }) => {
 Input.propTypes = {
   label: PropTypes.string,
   type: PropTypes.string,
+  value: PropTypes.string,
   name: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
