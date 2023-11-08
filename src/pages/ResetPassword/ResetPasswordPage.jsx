@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import Input from "../../components/ui/Input";
+import Input from "../../components/ui/Input/Input";
 import { validatePassword } from "../../components/validation/validation";
 import { resetPassword } from "../../services/userServices";
 

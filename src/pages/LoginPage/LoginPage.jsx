@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import styles from "./LoginPage.module.css";
-import Input from "../../components/ui/Input";
+import Input from "../../components/ui/Input/Input";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/userServices";
 import {
@@ -10,6 +10,7 @@ import {
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -130,7 +131,8 @@ const LoginPage = () => {
       </form>
       <button
         onClick={handleForgotPasswordClick}
-        className={styles["forgot-Button"]}>
+        className={styles["forgot-Button"]}
+      >
         Forgot password
       </button>
     </div>
