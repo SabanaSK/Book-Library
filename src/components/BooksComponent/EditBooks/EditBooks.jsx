@@ -49,7 +49,7 @@ const EditBook = () => {
     if (validateForm()) {
       editBooks(bookId, book)
         .then(() => {
-          navigate("/admin");
+          navigate("/adminBook");
         })
         .catch((err) => {
           console.error("Error updating book:", err);

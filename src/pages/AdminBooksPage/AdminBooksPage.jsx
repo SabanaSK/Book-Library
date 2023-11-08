@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 const AdminBooksPage = () => {
   const navigate = useNavigate();
   const handleCreateClick = () => {
-    navigate("/admin/create-book");
+    navigate("/create-book");
   };
   return (
     <div>

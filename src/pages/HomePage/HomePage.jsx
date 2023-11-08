@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   const navigate = useNavigate();
   const handleAdminPageClick = () => {
-    navigate("/admin");
+    navigate("/adminBook");
   };
   return (
     <div>

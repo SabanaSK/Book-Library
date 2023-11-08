@@ -9,7 +9,7 @@ const Book = ({ book }) => {
         <p>Genre: {book.genre}</p>
         <p>Author: {book.author}</p>
       </Link>
-      <Link to={`/admin/edit-book/${book.Id}`}>
+      <Link to={`/edit-book/${book.Id}`}>
         <button>Edit ✏️</button>
       </Link>
     </div>
