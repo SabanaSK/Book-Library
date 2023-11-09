@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useSearchParams } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/HomePage/HomePage";
 import BookPage from "./pages/BookPage/BookPage";
@@ -8,7 +8,7 @@ import ForgotPassword from "./pages/ForgotPasswordPage/ForgotPassword";
 import ResetPasswordPage from "./pages/ResetPassword/ResetPasswordPage";
 import { UserContextProvider } from "./context/UserContext";
 import AdminBooksPage from "./pages/AdminBooksPage/AdminBooksPage";
-import CreateBookPage from "./pages/CreateBookPage/CretaeBookPage";
+import CreateBookPage from "./pages/CreateBookPage/CreateBookPage";
 import EditBookPage from "./pages/EditBookPage/EditBookPage";
 
 function AuthenticatedRoutes() {
@@ -29,8 +29,15 @@ function PublicRoutes() {
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
       <Route path="/forgot" element={<ForgotPassword />} />
+    </Routes>
+  );
+}
+
+function TokenRoutes() {
+  return (
+    <Routes>
+      <Route path="/register" element={<RegisterPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
     </Routes>
   );
@@ -38,13 +45,28 @@ function PublicRoutes() {
 
 function App() {
   const location = useLocation();
+  const [searchParams] = useSearchParams();
+
+  const token = searchParams.get("token");
+
+  const isTokenRoute =
+    location.pathname.startsWith("/register") ||
+    location.pathname.startsWith("/reset-password");
 
   const isPublicRoute =
-    location.pathname === "/" || location.pathname.startsWith("/public");
+    location.pathname === "/" || location.pathname.startsWith("/forgot");
 
-  return (
-    <div>{isPublicRoute ? <PublicRoutes /> : <AuthenticatedRoutes />}</div>
-  );
+  let routeComponents = null;
+
+  if (isTokenRoute && token) {
+    routeComponents = <TokenRoutes />;
+  } else if (isPublicRoute) {
+    routeComponents = <PublicRoutes />;
+  } else {
+    routeComponents = <AuthenticatedRoutes />;
+  }
+
+  return <div>{routeComponents}</div>;
 }
 
 export default App;
