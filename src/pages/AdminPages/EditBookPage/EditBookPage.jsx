@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getBookById, editBooks } from "../../services/bookServices";
-import Input from "../../components/ui/Input/Input";
+import { getBookById, editBooks } from "../../../services/bookServices";
+import Input from "../../../components/ui/Input/Input";
+import Loading from "../../../components/ui/Loading/Loading";
+import { getCurrentUser } from "../../../services/userServices";
 
 const EditBookPage = () => {
   const { bookId } = useParams();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [book, setBook] = useState({
     Id: "",
     title: "",
@@ -13,6 +17,7 @@ const EditBookPage = () => {
     author: "",
   });
   const [errors, setErrors] = useState({});
+
   useEffect(() => {
     getBookById(bookId)
       .then((res) => {
@@ -23,6 +28,45 @@ const EditBookPage = () => {
         console.error("Error fetching book:", err);
       });
   }, [bookId]);
+
+  useEffect(() => {
+    initializePage();
+  });
+
+  const initializePage = async () => {
+    setIsLoading(true);
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      setIsLoading(false);
+      navigate("/");
+      return;
+    }
+    await validateToken(token);
+    setIsLoading(false);
+  };
+
+  const validateToken = async (token) => {
+    try {
+      const response = await getCurrentUser(token);
+      if (response.data.user.role == "admin") {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    } catch (error) {
+      console.error("Failed to fetch current user:", error);
+      setIsAuthenticated(false);
+    }
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!isAuthenticated) {
+    navigate("/");
+    return null;
+  }
 
   const handleChange = (event) => {
     const { name, value } = event.target;

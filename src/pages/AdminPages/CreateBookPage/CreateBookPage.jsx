@@ -1,7 +1,14 @@
-import { useState, useRef } from "react";
-import Input from "../../components/ui/Input/Input";
-import { createBooks } from "../../services/bookServices";
+import { useState, useRef, useEffect } from "react";
+import Input from "../../../components/ui/Input/Input";
+import { createBooks } from "../../../services/bookServices";
+import Loading from "../../../components/ui/Loading/Loading";
+import { getCurrentUser } from "../../../services/userServices";
+import { useNavigate } from "react-router";
+
 const CreateBookPage = () => {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [newBook, setNewBook] = useState({
     id: "",
     title: "",
@@ -16,6 +23,46 @@ const CreateBookPage = () => {
   });
   const [successMessage, setSuccessMessage] = useState("");
   const formRef = useRef(null);
+
+  useEffect(() => {
+    initializePage();
+  });
+
+  const initializePage = async () => {
+    setIsLoading(true);
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      setIsLoading(false);
+      navigate("/");
+      return;
+    }
+    await validateToken(token);
+    setIsLoading(false);
+  };
+
+  const validateToken = async (token) => {
+    try {
+      const response = await getCurrentUser(token);
+      if (response.data.user.role == "admin") {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    } catch (error) {
+      console.error("Failed to fetch current user:", error);
+      setIsAuthenticated(false);
+    }
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!isAuthenticated) {
+    navigate("/");
+    return null;
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewBook((prevState) => ({
@@ -23,6 +70,7 @@ const CreateBookPage = () => {
       [name]: value,
     }));
   };
+
   const validateForm = () => {
     let tempErrors = {};
     tempErrors.title = newBook.title ? "" : "Title is required";
@@ -46,6 +94,7 @@ const CreateBookPage = () => {
       });
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -62,6 +111,7 @@ const CreateBookPage = () => {
       console.log("Form has errors");
     }
   };
+
   return (
     <div className="create-book-page">
       <h2>Create Book</h2>

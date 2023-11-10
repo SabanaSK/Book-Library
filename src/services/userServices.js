@@ -51,3 +51,5 @@ export const getUserById = (userId) => {
 export const deleteUser = (userId) => {
   return api.delete(`/users/${userId}`);
 };
+
+

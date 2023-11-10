@@ -1,23 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../../context/UserContext";
+
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const [username, setUsername] = useState("");
-  const { currentUser } = useContext(UserContext);
-
-  useEffect(() => {
-    if (currentUser) {
-      setUsername(currentUser.username);
-    }
-  }, [currentUser]);
-
   return (
     <div>
-      <p>{username}</p>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/home">Home</Link>
         </li>
         <li>
           <Link to="/adminBooks">Books</Link>

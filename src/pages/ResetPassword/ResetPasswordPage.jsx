@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "../../components/ui/Input/Input";
 import { validatePassword } from "../../components/validation/validation";
 import { resetPassword } from "../../services/userServices";
+import { validateResetToken } from "../../services/tokenService";
+import Loading from "../../components/ui/Loading/Loading";
 
 const ResetPasswordPage = () => {
   const [resetToken, setResetToken] = useState("");
@@ -12,12 +15,56 @@ const ResetPasswordPage = () => {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const formRef = useRef(null);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isValidResetToken, setValidResetToken] = useState(false);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.hash.split("?")[1]);
     const token = queryParams.get("token");
     if (token) setResetToken(token);
   }, []);
+
+  useEffect(() => {
+    initializePage();
+  });
+
+  const initializePage = async () => {
+    setIsLoading(true);
+    const token = extractTokenFromURL();
+    if (!token) {
+      setIsLoading(false);
+      navigate("/");
+      return;
+    }
+    await validateToken(token);
+    setIsLoading(false);
+  };
+
+  const extractTokenFromURL = () => {
+    const queryParams = new URLSearchParams(window.location.hash.split("?")[1]);
+    return queryParams.get("token");
+  };
+
+  const validateToken = async (token) => {
+    try {
+      await validateResetToken(token);
+      setResetToken(token);
+      setValidResetToken(true);
+    } catch (error) {
+      console.error("Failed to validate reset token:", error);
+      setValidResetToken(false);
+    }
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!isValidResetToken) {
+    navigate("/");
+    return null;
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

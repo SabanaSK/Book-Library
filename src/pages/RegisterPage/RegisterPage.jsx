@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Input from "../../components/ui/Input/Input";
 import { validatePassword } from "../../components/validation/validation";
 import { register } from "../../services/userServices";
+import { validateInviteToken } from "../../services/tokenService";
+import Loading from "../../components/ui/Loading/Loading";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -12,12 +14,55 @@ const RegisterPage = () => {
   const [errors, setErrors] = useState({});
   const formRef = useRef(null);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isValidInviteToken, setValidInviteToken] = useState(false);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.hash.split("?")[1]);
     const token = queryParams.get("token");
     if (token) setInviteToken(token);
   }, []);
+
+  useEffect(() => {
+    initializePage();
+  });
+
+  const initializePage = async () => {
+    setIsLoading(true);
+    const token = extractTokenFromURL();
+    if (!token) {
+      setIsLoading(false);
+      navigate("/");
+      return;
+    }
+    await validateToken(token);
+    setIsLoading(false);
+  };
+
+  const extractTokenFromURL = () => {
+    const queryParams = new URLSearchParams(window.location.hash.split("?")[1]);
+    return queryParams.get("token");
+  };
+
+  const validateToken = async (token) => {
+    try {
+      await validateInviteToken(token);
+      setInviteToken(token);
+      setValidInviteToken(true);
+    } catch (error) {
+      console.error("Failed to validate invite token:", error);
+      setValidInviteToken(false);
+    }
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!isValidInviteToken) {
+    navigate("/");
+    return null;
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
