@@ -5,12 +5,14 @@ const Book = ({ book }) => {
   return (
     <div>
       <Link to={`/book/${book.Id}`}>
+        {" "}
         <p>Title: {book.title}</p>
         <p>Genre: {book.genre}</p>
         <p>Author: {book.author}</p>
       </Link>
       <Link to={`/edit-book/${book.Id}`}>
-        <button>Edit ✏️</button>
+        {" "}
+        <button>Edit</button>
       </Link>
     </div>
   );
