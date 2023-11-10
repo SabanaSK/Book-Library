@@ -11,7 +11,7 @@ const AdminBooksPage = () => {
 
   useEffect(() => {
     initializePage();
-  });
+  },[]);
 
   const initializePage = async () => {
     setIsLoading(true);
@@ -51,7 +51,7 @@ const AdminBooksPage = () => {
   const handleCreateClick = () => {
     navigate("/create-book");
   };
-  
+
   return (
     <div>
       <p>BOOKS</p>

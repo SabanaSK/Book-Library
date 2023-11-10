@@ -24,7 +24,7 @@ const BookPage = () => {
 
   useEffect(() => {
     initializePage();
-  });
+  },[]);
 
   const initializePage = async () => {
     setIsLoading(true);

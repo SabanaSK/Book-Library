@@ -25,7 +25,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     initializePage();
-  });
+  },[]);
 
   const initializePage = async () => {
     setIsLoading(true);

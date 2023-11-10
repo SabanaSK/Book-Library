@@ -13,7 +13,7 @@ const AdminUsersPage = () => {
 
   useEffect(() => {
     initializePage();
-  });
+  },[]);
 
   const initializePage = async () => {
     setIsLoading(true);

@@ -27,7 +27,7 @@ const ResetPasswordPage = () => {
 
   useEffect(() => {
     initializePage();
-  });
+  }, []);
 
   const initializePage = async () => {
     setIsLoading(true);

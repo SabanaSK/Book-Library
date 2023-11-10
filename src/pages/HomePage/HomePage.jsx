@@ -14,7 +14,7 @@ const HomePage = () => {
 
   useEffect(() => {
     initializePage();
-  });
+  }, []);
 
   const initializePage = async () => {
     setIsLoading(true);
@@ -25,17 +25,16 @@ const HomePage = () => {
       return;
     }
     await validateToken(token);
+    setIsLoading(false);
   };
 
   const validateToken = async (token) => {
     try {
       await getCurrentUser(token);
       setIsAuthenticated(true);
-      setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch current user:", error);
       setIsAuthenticated(false);
-      setIsLoading(false);
     }
   };
 
