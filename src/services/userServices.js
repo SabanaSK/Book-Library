@@ -35,3 +35,19 @@ export const resetPassword = (resetToken, newPassword, confirmPassword) => {
 export const logoutUser = () => {
   return api.delete("/tokens/logout");
 };
+
+export const updateUser = (userId, data) => {
+  return api.patch(`/users/${userId}`, data); 
+};
+
+export const getAllUsers = () => {
+  return api.get("/users/");
+};
+
+export const getUserById = (userId) => {
+  return api.get(`/users/${userId}`);
+};
+
+export const deleteUser = (userId) => {
+  return api.delete(`/users/${userId}`);
+};

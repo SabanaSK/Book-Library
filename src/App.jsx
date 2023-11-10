@@ -10,6 +10,8 @@ import { UserContextProvider } from "./context/UserContext";
 import AdminBooksPage from "./pages/AdminBooksPage/AdminBooksPage";
 import CreateBookPage from "./pages/CreateBookPage/CreateBookPage";
 import EditBookPage from "./pages/EditBookPage/EditBookPage";
+import EditUserPage from "./pages/EditUserPage/EditUserPage";
+import AdminUsersPage from "./pages/AdminUsersPage/AdminUsersPage";
 
 function AuthenticatedRoutes() {
   return (
@@ -17,9 +19,11 @@ function AuthenticatedRoutes() {
       <Routes>
         <Route path="/home" element={<HomePage />} />
         <Route path="/book/:bookId" element={<BookPage />} />
-        <Route path="/adminBook" element={<AdminBooksPage />} />
+        <Route path="/adminBooks" element={<AdminBooksPage />} />
+        <Route path="/adminUsers" element={<AdminUsersPage />} />
         <Route path="/create-book" element={<CreateBookPage />} />
         <Route path="/edit-book/:bookId" element={<EditBookPage />} />
+        <Route path="/edit-user/:userId" element={<EditUserPage />} />
       </Routes>
     </UserContextProvider>
   );

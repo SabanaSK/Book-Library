@@ -1,11 +1,12 @@
 import { useState } from "react";
 import InviteUser from "../../components/UsersComponent/InviteUser/InviteUser";
+import UsersTable from "../../components/UsersComponent/UsersTable/UsersTable";
 
 const AdminUsersPage = () => {
   const [showInviteModal, setShowInviteModal] = useState(false);
 
   const handleInviteClick = () => {
-    setShowInviteModal(true);
+    setShowInviteModal(prev => !prev);
   };
 
   const handleCloseModal = () => {
@@ -14,10 +15,13 @@ const AdminUsersPage = () => {
 
   return (
     <div>
+      <h1>Users Management</h1>
       <button type="button" onClick={handleInviteClick}>
         Invite User
       </button>
       {showInviteModal && <InviteUser onClose={handleCloseModal} />}
+
+      <UsersTable/>
     </div>
   );
 };
