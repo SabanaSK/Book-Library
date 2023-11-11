@@ -102,9 +102,13 @@ const LoginPage = () => {
 
   return (
     <div className={styles["login-Page"]}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} ref={formRef}>
+      <h2 className={styles["heading-login"]}>Login</h2>
+      <form
+        className={styles["form-login"]}
+        onSubmit={handleSubmit}
+        ref={formRef}>
         <Input
+          className={styles["input-field"]}
           label="Email"
           type="text"
           value={formData.email}
@@ -127,14 +131,14 @@ const LoginPage = () => {
         {errors.genericError && (
           <p className={styles["error"]}>{errors.genericError}</p>
         )}
-        <button type="submit" className={styles["submitButton"]}>
+        <button type="submit" className={styles["submit-button"]}>
           Login
         </button>
       </form>
+
       <button
         onClick={handleForgotPasswordClick}
-        className={styles["forgot-Button"]}
-      >
+        className={styles["forgot-button"]}>
         Forgot password
       </button>
     </div>

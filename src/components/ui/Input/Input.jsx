@@ -3,7 +3,7 @@ import styles from "./Input.module.css";
 
 const Input = ({ label, type, name, value, onChange, placeholder }) => {
   return (
-    <div className={styles.inputGroup}>
+    <div className={styles["input-group"]}>
       {label && (
         <label htmlFor={name} className={styles.label}>
           {label}
