@@ -2,6 +2,8 @@ import { useState } from "react";
 import Input from "../../components/ui/Input/Input";
 import { validateEmail } from "../../components/validation/validation";
 import { forgotPassword } from "../../services/userServices";
+import styles from "./ForgotPasswordPage.module.css";
+import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -36,20 +38,28 @@ const ForgotPassword = () => {
 
   return (
     <div>
-      <h2>Forgot Password</h2>
-      <form onSubmit={handleSubmit}>
-        <Input
-          label="Email"
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-        />
-        {error && <p>{error}</p>}
-        <button type="submit">Send Link</button>
-      </form>
-      {message && <p>{message}</p>}
+      <Link className={styles["goback-button"]} to={`/`}>
+        <p> ← Go Back</p>
+      </Link>
+      <div className={styles["forgot-page"]}>
+        <form className={styles["form"]} onSubmit={handleSubmit}>
+          <h2 className={styles["heading"]}>Forgot Password</h2>
+          <Input
+            className={styles["input-field"]}
+            label="Email"
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+          />
+          {error && <p className={styles["error"]}>{error}</p>}
+          <button className={styles["submit-button"]} type="submit">
+            Send Link
+          </button>
+        </form>
+        {message && <p className={styles["error"]}>{message}</p>}
+      </div>
     </div>
   );
 };
