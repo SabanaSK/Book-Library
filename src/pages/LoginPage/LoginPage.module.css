@@ -1,19 +1,23 @@
+.login-page {
+  text-align: center;
+}
+
 .form-login {
-  background-color: #f072f0;
+  background-color: var(--form-background-color);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0 0 0 / 10%);
+  box-shadow: 1px 6px 20px var(--box-shadow);
   width: 100%;
+  margin-top: 7em;
   max-width: 400px;
-  margin-top: 0;
-  margin-left: 32%;
+  display: inline-block;
 }
 
 .heading-login {
-  color: #f3e6f5;
-  font-family: helvetica,
-    arial,
-    sans-serif;
+  color: var(--white);
+  font-family: var(--font-family);
+  margin-right: 10em;
+  font-size: 30px;
 }
 
 .input-field {
@@ -32,15 +36,16 @@
   position: absolute;
   bottom: -20px;
   left: 0;
+  font-family: var(--font-family);
 }
 
-.submit-button,
-.forgot-button {
-  background-color: #fb6090;
+.submit-button {
+  background-color: var(--background-button);
   color: white;
   border: none;
   padding: 7px 15px;
   margin-top: 10px;
+  margin-bottom: 1em;;
   cursor: pointer;
   border-radius: 5px;
   width: 100%;
@@ -49,22 +54,15 @@
 }
 
 .forgot-button {
-  background-color: #f072f0;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0 0 0 / 10%);
-  margin-top: 2%;
-  margin-left: 32%;
-  width: 37%;
-  height: 0.4%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-decoration: none;
   color: #ffff;
-  text-decoration: underline;
-  padding: 9px;
+  font-size: 20px;
 }
 
-.submit-button:hover,
 .forgot-button:hover {
-  background-color: #fb6090;
+  color: var(--hover-text);
+}
+
+.submit-button:hover {
+  background-color:var(--hover-text);
 }

@@ -6,23 +6,26 @@
 }
 
 :root {
-  --white-font-color: #FFF;
-  --background-button: #ec578e;
+  --white: #fff;
+  --background-button: #9757c1;
   --background-button-hover: #d64481;
-  --background-form: #D782E0;
-  --font-family: helvetica, arial, sans-serif;
-  --global-background-color: #f4a7f4;
+  --background-form: #c3c3c3;
+  --global-background-color: #f4e8f9;
+  --box-shadow: #8660a4;
+  --form-background-color: #d4b7e4;
+  --hover-text:  #480e6e;
+  --font-family: system-ui;
 }
 
 body {
   background-color: var(--global-background-color);
 }
 
-form {
+/* form {
   padding: 2rem;
   border-radius: 8px;
   width: 80%;
   max-width: 400px;
   display: flex;
   flex-direction: column;
-}
+} */

@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import styles from "./LoginPage.module.css";
 import Input from "../../components/ui/Input/Input";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/userServices";
 import {
   validateEmail,
@@ -96,17 +96,15 @@ const LoginPage = () => {
     }
   };
 
-  const handleForgotPasswordClick = () => {
-    navigate("/forgot");
-  };
-
   return (
-    <div className={styles["login-Page"]}>
-      <h2 className={styles["heading-login"]}>Login</h2>
+    <div className={styles["login-page"]}>
       <form
         className={styles["form-login"]}
         onSubmit={handleSubmit}
-        ref={formRef}>
+        ref={formRef}
+      >
+        <h2 className={styles["heading-login"]}>Login</h2>
+
         <Input
           className={styles["input-field"]}
           label="Email"
@@ -134,13 +132,11 @@ const LoginPage = () => {
         <button type="submit" className={styles["submit-button"]}>
           Login
         </button>
-      </form>
 
-      <button
-        onClick={handleForgotPasswordClick}
-        className={styles["forgot-button"]}>
-        Forgot password
-      </button>
+        <Link className={styles["forgot-button"]} to={`/forgot`}>
+          <p>Forgot password</p>
+        </Link>
+      </form>
     </div>
   );
 };
