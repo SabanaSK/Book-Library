@@ -136,7 +136,6 @@ const ResetPasswordPage = () => {
       <form ref={formRef} onSubmit={handleSubmit} className={styles["form"]}>
         <h2 className={styles["heading"]}>Reset Password</h2>
         <Input
-          className={styles["input-field"]}
           label="New Password"
           type="password"
           name="newPassword"
@@ -148,7 +147,6 @@ const ResetPasswordPage = () => {
           <p className={styles["error"]}>{errors.newPassword}</p>
         )}
         <Input
-          className={styles["input-field"]}
           label="Confirm Password"
           type="password"
           name="confirmPassword"

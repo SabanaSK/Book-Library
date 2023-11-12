@@ -45,7 +45,6 @@ const ForgotPassword = () => {
         <form className={styles["form"]} onSubmit={handleSubmit}>
           <h2 className={styles["heading"]}>Forgot Password</h2>
           <Input
-            className={styles["input-field"]}
             label="Email"
             type="email"
             name="email"

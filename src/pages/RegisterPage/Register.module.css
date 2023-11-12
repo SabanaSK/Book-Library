@@ -1,24 +1,27 @@
-.login-page {
+
+.register-page {
   text-align: center;
 }
 
-.form-login {
+.form{
   background-color: var(--form-background-color);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 1px 6px 20px var(--box-shadow);
   width: 100%;
-  margin-top: 4em;
+  margin-top: 3em;
   max-width: 400px;
   display: inline-block;
 }
 
-.heading-login {
+.heading {
   color: var(--white);
   font-family: var(--font-family);
-  margin-right: 10em;
+  margin-right: 8em;
   font-size: 30px;
+  margin-bottom: 40px;
 }
+
 
 .error {
   color: red;
@@ -43,16 +46,16 @@
   font-size: 1rem;
 }
 
-.forgot-button {
+.submit-button:hover {
+  background-color:var(--hover-text);
+}
+
+.login-button {
   text-decoration: none;
   color: #ffff;
   font-size: 20px;
 }
 
-.forgot-button:hover {
+.login-button:hover {
   color: var(--hover-text);
-}
-
-.submit-button:hover {
-  background-color:var(--hover-text);
 }

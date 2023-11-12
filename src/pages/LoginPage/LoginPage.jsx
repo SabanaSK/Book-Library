@@ -116,7 +116,6 @@ const LoginPage = () => {
         />
         {errors.email && <p className={styles["error"]}>{errors.email}</p>}
         <Input
-         className={styles["input-field"]}
           label="Password"
           type="password"
           name="password"

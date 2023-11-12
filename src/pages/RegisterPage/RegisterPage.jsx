@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Input from "../../components/ui/Input/Input";
 import { validatePassword } from "../../components/validation/validation";
 import { register } from "../../services/userServices";
 import { validateInviteToken } from "../../services/tokenService";
 import Loading from "../../components/ui/Loading/Loading";
+import styles from "./Register.module.css";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -121,9 +122,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit} ref={formRef}>
+    <div className={styles["register-page"]}>
+      <form onSubmit={handleSubmit} ref={formRef} className={styles["form"]}>
+        <h2 className={styles["heading"]}>Register</h2>
         <Input
           label="Password"
           type="password"
@@ -132,9 +133,12 @@ const RegisterPage = () => {
           placeholder="Choose a password"
           value={formData.password}
         />
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className={styles["error"]}>{errors.password}</p>}
 
-        <button type="submit">Register</button>
+        <button type="submit" className={styles["submit-button"]}>Register</button>
+        <Link className={styles["login-button"]} to={`/`}>
+          <p>Go to Login?</p>
+        </Link>
       </form>
     </div>
   );
