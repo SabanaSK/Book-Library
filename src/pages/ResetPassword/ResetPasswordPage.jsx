@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Input from "../../components/ui/Input/Input";
 import { validatePassword } from "../../components/validation/validation";
 import { resetPassword } from "../../services/userServices";
 import { validateResetToken } from "../../services/tokenService";
 import Loading from "../../components/ui/Loading/Loading";
+import styles from "./ResetPassword.module.css";
 
 const ResetPasswordPage = () => {
   const [resetToken, setResetToken] = useState("");
@@ -131,10 +132,11 @@ const ResetPasswordPage = () => {
   };
 
   return (
-    <div>
-      <h2>Reset Password</h2>
-      <form ref={formRef} onSubmit={handleSubmit}>
+    <div className={styles["reset-page"]}>
+      <form ref={formRef} onSubmit={handleSubmit} className={styles["form"]}>
+        <h2 className={styles["heading"]}>Reset Password</h2>
         <Input
+          className={styles["input-field"]}
           label="New Password"
           type="password"
           name="newPassword"
@@ -142,8 +144,11 @@ const ResetPasswordPage = () => {
           placeholder="Enter your new password"
           value={formData.newPassword}
         />
-        {errors.newPassword && <p>{errors.newPassword}</p>}
+        {errors.newPassword && (
+          <p className={styles["error"]}>{errors.newPassword}</p>
+        )}
         <Input
+          className={styles["input-field"]}
           label="Confirm Password"
           type="password"
           name="confirmPassword"
@@ -151,10 +156,17 @@ const ResetPasswordPage = () => {
           placeholder="Confirm your new password"
           value={formData.confirmPassword}
         />
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Reset Password</button>
+        {errors.confirmPassword && (
+          <p className={styles["error"]}>{errors.confirmPassword}</p>
+        )}
+        <button type="submit" className={styles["submit-button"]}>
+          Reset Password
+        </button>
+        <Link className={styles["login-button"]} to={`/`}>
+          <p>Go to Login?</p>
+        </Link>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className={styles["error"]}>{message}</p>}
     </div>
   );
 };
