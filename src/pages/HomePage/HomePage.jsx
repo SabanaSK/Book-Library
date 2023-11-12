@@ -1,10 +1,8 @@
-import LogoutButton from "../../components/UsersComponent/LogoutButton/LogoutButton";
 import Navbar from "../../components/ui/navbar/navbar";
-
+import styles from "./HomePage.module.css";
 import Loading from "../../components/ui/Loading/Loading";
 import { getCurrentUser } from "../../services/userServices";
 import { useState, useEffect } from "react";
-
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
@@ -48,11 +46,12 @@ const HomePage = () => {
   }
 
   return (
-    <div>
+    <div className={styles["home-container"]}>
       <Navbar />
-      <p>Home Page</p>
-      <p>Welcome to Book Library</p>
-      <LogoutButton />
+      <div className={styles["main-content"]}>
+        <p>Home Page</p>
+        <p>Welcome to Book Library</p>
+      </div>
     </div>
   );
 };

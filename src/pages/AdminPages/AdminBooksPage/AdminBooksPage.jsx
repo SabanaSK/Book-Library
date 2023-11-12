@@ -3,6 +3,7 @@ import BookList from "../../../components/BooksComponent/BooksList/BooksList";
 import Loading from "../../../components/ui/Loading/Loading";
 import { getCurrentUser } from "../../../services/userServices";
 import { useState, useEffect } from "react";
+import Navbar from "../../../components/ui/navbar/navbar";
 
 const AdminBooksPage = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const AdminBooksPage = () => {
 
   useEffect(() => {
     initializePage();
-  },[]);
+  }, []);
 
   const initializePage = async () => {
     setIsLoading(true);
@@ -54,14 +55,11 @@ const AdminBooksPage = () => {
 
   return (
     <div>
+      <Navbar />
       <p>BOOKS</p>
       <button type="button" onClick={handleCreateClick}>
         Create Book
       </button>
-      <button type="button">Edit Book</button>
-      <button type="button">Delete Book</button>
-      <form></form>
-
       <BookList />
     </div>
   );

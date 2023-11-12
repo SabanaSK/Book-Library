@@ -4,6 +4,7 @@ import UsersTable from "../../../components/UsersComponent/UsersTable/UsersTable
 import Loading from "../../../components/ui/Loading/Loading";
 import { getCurrentUser } from "../../../services/userServices";
 import { useNavigate } from "react-router";
+import Navbar from "../../../components/ui/navbar/navbar";
 
 const AdminUsersPage = () => {
   const [showInviteModal, setShowInviteModal] = useState(false);
@@ -60,6 +61,7 @@ const AdminUsersPage = () => {
 
   return (
     <div>
+      <Navbar/>
       <h1>Users Management</h1>
       <button type="button" onClick={handleInviteClick}>
         Invite User

@@ -22,14 +22,13 @@ const Input = ({ label, type, name, value, onChange, placeholder }) => {
   );
 };
 
-// Must add require later
 Input.propTypes = {
-  label: PropTypes.string,
-  type: PropTypes.string,
-  value: PropTypes.string,
-  name: PropTypes.string,
-  onChange: PropTypes.func,
-  placeholder: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
 };
 
 export default Input;

@@ -1,4 +1,5 @@
 import { logoutUser } from "../../../services/userServices";
+import styles from "./Logout.module.css";
 
 const LogoutButton = () => {
   const handleLogout = async () => {
@@ -14,7 +15,11 @@ const LogoutButton = () => {
     }
   };
 
-  return <button onClick={handleLogout}>Logout</button>;
+  return (
+    <button onClick={handleLogout} className={styles["logout-button"]}>
+      Logout
+    </button>
+  );
 };
 
 export default LogoutButton;

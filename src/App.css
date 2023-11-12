@@ -1,7 +1,4 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -13,6 +10,9 @@
   --box-shadow: #8660a4;
   --form-background-color:#a488b3;
   --hover-text:  #480e6e;
+  --darker-purple: #210346;
+  --light-pink: #b039b9;
+  --navbar: #693187;
   --font-family: system-ui;
 }
 
