@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../../../services/userServices";
 import User from "../User/User";
+import styles from "./UsersTable.module.css";
 
 const UsersTable = () => {
   const [users, setUsers] = useState([]);
@@ -16,7 +17,7 @@ const UsersTable = () => {
       });
   }, []);
   return (
-    <div>
+    <div className={styles["users-container"]}>
       {users.map((user) => (
         <User key={user.id} user={user} />
       ))}

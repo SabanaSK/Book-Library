@@ -13,13 +13,14 @@ text-align: center;
   margin-right: auto;
   margin-left: auto;
   color: var(--white);
+  font-family: var(--font-family);
 }
 
 
 .invite-button {
   margin-bottom: 2em;
   background-color: var(--darker-purple); 
-  color: white;
+  color: var(--white);
   border: none;
   border-radius: 10px;
   cursor: pointer;
