@@ -5,6 +5,7 @@ import Loading from "../../../components/ui/Loading/Loading";
 import { getCurrentUser } from "../../../services/userServices";
 import { useNavigate } from "react-router";
 import Navbar from "../../../components/ui/navbar/navbar";
+import styles from "./AdminUsersPage.module.css";
 
 const AdminUsersPage = () => {
   const [showInviteModal, setShowInviteModal] = useState(false);
@@ -14,7 +15,7 @@ const AdminUsersPage = () => {
 
   useEffect(() => {
     initializePage();
-  },[]);
+  }, []);
 
   const initializePage = async () => {
     setIsLoading(true);
@@ -58,16 +59,26 @@ const AdminUsersPage = () => {
   const handleCloseModal = () => {
     setShowInviteModal(false);
   };
+  const getButtonClassName = () => {
+    return showInviteModal ? styles["invite-active"] : styles["invite-button"];
+  };
 
   return (
     <div>
-      <Navbar/>
-      <h1>Users Management</h1>
-      <button type="button" onClick={handleInviteClick}>
-        Invite User
-      </button>
-      {showInviteModal && <InviteUser onClose={handleCloseModal} />}
-
+      <Navbar />
+      <div className={styles["container"]}>
+        <h1 className={styles["header"]}>Users Management</h1>
+        <div className={styles["invite-section"]}>
+          <button
+            type="button"
+            onClick={handleInviteClick}
+            className={getButtonClassName()}
+          >
+            Invite User
+          </button>
+          {showInviteModal && <InviteUser onClose={handleCloseModal} />}
+        </div>
+      </div>
       <UsersTable />
     </div>
   );

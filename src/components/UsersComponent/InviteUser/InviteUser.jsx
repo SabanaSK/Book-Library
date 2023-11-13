@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { inviteUserByEmail } from "../../../services/userServices";
-
+import styles from "./InviteUser.module.css";
 const InviteUserPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -28,25 +28,41 @@ const InviteUserPage = () => {
   };
 
   return (
-    <div>
-      <h2>Invite User</h2>
-      <form onSubmit={handleInvite}>
+    <div className={styles["invite-form-container"]}>
+      <h2 className={styles["invite-form-title"]}>Invite User</h2>
+      <form onSubmit={handleInvite} className={styles["invite-form"]}>
         <input
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          className={styles["invite-input"]}
         />
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className={styles["invite-input"]}
         />
-        <button type="submit">Send Invite</button>
+        <button type="submit" className={styles["invite-button"]}>
+          Send Invite
+        </button>
       </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      {error && (
+        <p
+          className={`${styles["feedback-message"]} ${styles["error-message"]}`}
+        >
+          {error}
+        </p>
+      )}
+      {success && (
+        <p
+          className={`${styles["feedback-message"]} ${styles["success-message"]}`}
+        >
+          {success}
+        </p>
+      )}
     </div>
   );
 };
