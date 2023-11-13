@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Loading from "../../../components/ui/Loading/Loading";
 import {
   getUserById,
@@ -7,6 +7,8 @@ import {
   deleteUser,
   getCurrentUser,
 } from "../../../services/userServices";
+import styles from "./EditUserPage.module.css";
+import DeleteConfirmationModal from "../../../components/UsersComponent/DeleteConfirmation/DeleteConfrimation";
 
 const EditUserPage = () => {
   const { userId } = useParams();
@@ -15,6 +17,7 @@ const EditUserPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -31,7 +34,7 @@ const EditUserPage = () => {
 
   useEffect(() => {
     initializePage();
-  },[]);
+  }, []);
 
   const initializePage = async () => {
     setIsLoading(true);
@@ -80,31 +83,73 @@ const EditUserPage = () => {
       console.log("fail");
     }
   };
-  const handleDeleteUser = async () => {
-    const response = await deleteUser(userId);
-    if (response.data.message === "User deleted successfully.") {
-      console.log("Delete User success", response.data);
-    } else {
-      console.log("fail", response.data);
+
+  const handleConfirmDelete = async () => {
+    try {
+      console.log("id:", userId);
+      const response = await deleteUser(userId);
+      if (response.data.message === "User deleted successfully.") {
+        navigate("/adminUsers");
+      } else {
+        console.log("Fail", response.data);
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
     }
   };
+
+  const handleCancelDelete = () => {
+    setShowDeleteConfirm(false); // Simply hide the confirmation modal
+  };
+
   return (
     <div>
-      <h2>Edit User Role</h2>
-      {user && (
-        <div>
-          <p>Username: {user.username}</p>
-          <p>Email: {user.email}</p>
-          <p>Current Role: {user.role}</p>
-        </div>
-      )}
-      <label htmlFor="role">Select Role:</label>
-      <select id="role" onChange={handleRoleChange} value={role}>
-        <option value="user">User</option>
-        <option value="admin">Admin</option>
-      </select>
-      <button onClick={handleUpdateRole}>Update Role</button>
-      <button onClick={handleDeleteUser}>Delete User</button>
+      <Link className={styles["goback-button"]} to={`/`}>
+        <p> ← Go Back</p>
+      </Link>
+      <div className={styles["edit-user-container"]}>
+        <h2 className={styles["edit-user-header"]}>Edit User Role</h2>
+        {user && (
+          <div className={styles["user-details"]}>
+            <p className={styles["user-detail"]}>Username: {user.username}</p>
+            <p className={styles["user-detail"]}>Email: {user.email}</p>
+            <p className={styles["user-detail"]}>CreatedAt: {user.createdAt}</p>
+            <p className={styles["user-detail"]}>UpdatedBy: {user.updatedBy}</p>
+            <p className={styles["user-detail"]}>UpdatedAt: {user.updatedAt}</p>
+            <p className={styles["user-detail"]}>Current Role: {user.role}</p>
+          </div>
+        )}
+        <label htmlFor="role" className={styles.label}>
+          Select Role:
+        </label>
+        <select
+          id="role"
+          onChange={handleRoleChange}
+          value={role}
+          className={styles["select-role"]}
+        >
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+        <button
+          onClick={handleUpdateRole}
+          className={`${styles.button} ${styles["update-button"]}`}
+        >
+          Update Role
+        </button>
+        <button
+          onClick={() => setShowDeleteConfirm(true)}
+          className={`${styles.button} ${styles["delete-button"]}`}
+        >
+          Delete User
+        </button>
+        {showDeleteConfirm && (
+          <DeleteConfirmationModal
+            onConfirm={handleConfirmDelete}
+            onCancel={handleCancelDelete}
+          />
+        )}
+      </div>
     </div>
   );
 };
