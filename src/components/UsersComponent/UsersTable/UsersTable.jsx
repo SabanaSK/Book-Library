@@ -9,7 +9,6 @@ const UsersTable = () => {
   useEffect(() => {
     getAllUsers()
       .then((res) => {
-        console.log("check response:", res);
         setUsers(res.data);
       })
       .catch((err) => {

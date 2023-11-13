@@ -4,6 +4,7 @@ import Loading from "../../../components/ui/Loading/Loading";
 import { getCurrentUser } from "../../../services/userServices";
 import { useState, useEffect } from "react";
 import Navbar from "../../../components/ui/navbar/navbar";
+import styles from "./AdminBookPage.module.css";
 
 const AdminBooksPage = () => {
   const navigate = useNavigate();
@@ -56,11 +57,19 @@ const AdminBooksPage = () => {
   return (
     <div>
       <Navbar />
-      <p>BOOKS</p>
-      <button type="button" onClick={handleCreateClick}>
-        Create Book
-      </button>
-      <BookList />
+      <div className={styles["container"]}>
+        <h1 className={styles["header"]}>Books Management</h1>
+        <div className={styles["section"]}>
+          <button
+            type="button"
+            onClick={handleCreateClick}
+            className={styles["button"]}
+          >
+            Create Book
+          </button>
+        </div>
+        <BookList />
+      </div>
     </div>
   );
 };

@@ -13,7 +13,6 @@ const Navbar = () => {
       getCurrentUser(token)
         .then((response) => {
           if (response.status === 200 && response.data.user) {
-            console.log(response.data.user);
             setCurrentUser(response.data.user.username);
           }
         })

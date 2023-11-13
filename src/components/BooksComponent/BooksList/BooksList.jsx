@@ -3,6 +3,7 @@ import { getAllBooks } from "../../../services/bookServices";
 import Book from "../Book/Book";
 import DeleteBook from "../DeleteBook/DeleteBook";
 import { Link } from "react-router-dom";
+import styles from "./BookList.module.css";
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
@@ -23,7 +24,7 @@ const BookList = () => {
   };
 
   return (
-    <div>
+    <div className={styles["books-container"]}>
       {books.map((book) => (
         <div key={book.Id}>
           <Book book={book} />
@@ -33,7 +34,7 @@ const BookList = () => {
             onDeleteSuccess={handleDeleteSuccess}
           />
           <Link to={`/edit-book/${book.Id}`}>
-            <button>Edit</button>
+            <button className={styles["edit-button"]}>Edit</button>
           </Link>
         </div>
       ))}

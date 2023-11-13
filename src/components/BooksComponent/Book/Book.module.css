@@ -1,9 +1,22 @@
 .books {
   text-decoration: none;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1rem;
+  display: block;
+  margin-bottom: 1rem;
+  width: 30%;
+  transition: box-shadow 0.3s ease-in-out;
 }
 
-.book-title strong,
-.book-genre strong,
-.book-author strong {
-  font-weight: bold;
+.books:hover {
+  box-shadow: 0 2px 5px #1e1d1d33;
+}
+
+.book-title,
+.book-genre,
+.book-author {
+  margin: 0.5rem 0;
+  font-size: 1rem;
 }
