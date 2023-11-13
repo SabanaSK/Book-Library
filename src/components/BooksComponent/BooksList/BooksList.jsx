@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getAllBooks } from "../../../services/bookServices";
 import Book from "../Book/Book";
 import DeleteBook from "../DeleteBook/DeleteBook";
+import { Link } from "react-router-dom";
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
@@ -31,6 +32,9 @@ const BookList = () => {
             bookTitle={book.title}
             onDeleteSuccess={handleDeleteSuccess}
           />
+          <Link to={`/edit-book/${book.Id}`}>
+            <button>Edit</button>
+          </Link>
         </div>
       ))}
     </div>
