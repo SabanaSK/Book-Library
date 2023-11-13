@@ -1,9 +1,8 @@
-
 .register-page {
   text-align: center;
 }
 
-.form{
+.form {
   background-color: var(--form-background-color);
   padding: 20px;
   border-radius: 10px;
@@ -22,11 +21,9 @@
   margin-bottom: 40px;
 }
 
-
-.error {
-  color: red;
+.error-register {
+  color: #d12b2b;
   font-size: 0.8rem;
-  position: absolute;
   bottom: -20px;
   left: 0;
   font-family: var(--font-family);
@@ -38,7 +35,7 @@
   border: none;
   padding: 7px 15px;
   margin-top: 10px;
-  margin-bottom: 1em;;
+  margin-bottom: 1em;
   cursor: pointer;
   border-radius: 5px;
   width: 100%;
@@ -47,7 +44,7 @@
 }
 
 .submit-button:hover {
-  background-color:var(--hover-text);
+  background-color: var(--hover-text);
 }
 
 .login-button {

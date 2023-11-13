@@ -26,7 +26,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     initializePage();
-  },[]);
+  }, []);
 
   const initializePage = async () => {
     setIsLoading(true);
@@ -133,9 +133,13 @@ const RegisterPage = () => {
           placeholder="Choose a password"
           value={formData.password}
         />
-        {errors.password && <p className={styles["error"]}>{errors.password}</p>}
+        {errors.password && (
+          <p className={styles["error-register"]}>{errors.password}</p>
+        )}
 
-        <button type="submit" className={styles["submit-button"]}>Register</button>
+        <button type="submit" className={styles["submit-button"]}>
+          Register
+        </button>
         <Link className={styles["login-button"]} to={`/`}>
           <p>Go to Login?</p>
         </Link>
