@@ -21,18 +21,16 @@ const ForgotPassword = () => {
       setError("");
     }
 
-    if (email) {
-      try {
-        const response = await forgotPassword(email);
-        if (response.status === 200) {
-          setMessage("Invitation sent successfully.");
-          setEmail("");
-        } else {
-          setError("Failed to send invitation.");
-        }
-      } catch (error) {
-        setError(error.response?.data?.message || "An error occurred.");
+    try {
+      const response = await forgotPassword(email);
+      if (response.status === 200) {
+        setMessage("Invitation sent successfully.");
+        setEmail("");
+      } else {
+        setError("Failed to send invitation.");
       }
+    } catch (error) {
+      setError(error.response?.data?.message || "An error occurred.");
     }
   };
 
@@ -53,11 +51,11 @@ const ForgotPassword = () => {
             placeholder="Enter your email"
           />
           {error && <p className={styles["error"]}>{error}</p>}
+          {message && <p className={styles["success"]}>{message}</p>}
           <button className={styles["submit-button"]} type="submit">
             Send Link
           </button>
         </form>
-        {message && <p className={styles["error"]}>{message}</p>}
       </div>
     </div>
   );
