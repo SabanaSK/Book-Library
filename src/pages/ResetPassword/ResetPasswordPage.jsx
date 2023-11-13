@@ -144,7 +144,7 @@ const ResetPasswordPage = () => {
           value={formData.newPassword}
         />
         {errors.newPassword && (
-          <p className={styles["error"]}>{errors.newPassword}</p>
+          <p className={styles["error-new-assword"]}>{errors.newPassword}</p>
         )}
         <Input
           label="Confirm Password"
@@ -155,7 +155,9 @@ const ResetPasswordPage = () => {
           value={formData.confirmPassword}
         />
         {errors.confirmPassword && (
-          <p className={styles["error"]}>{errors.confirmPassword}</p>
+          <p className={styles["error-confirm-password"]}>
+            {errors.confirmPassword}
+          </p>
         )}
         <button type="submit" className={styles["submit-button"]}>
           Reset Password
@@ -163,8 +165,8 @@ const ResetPasswordPage = () => {
         <Link className={styles["login-button"]} to={`/`}>
           <p>Go to Login?</p>
         </Link>
+        {message && <p className={styles["error"]}>{message}</p>}
       </form>
-      {message && <p className={styles["error"]}>{message}</p>}
     </div>
   );
 };
