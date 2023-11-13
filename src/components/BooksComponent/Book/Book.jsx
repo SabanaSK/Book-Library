@@ -1,13 +1,19 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-
+import styles from "./book.module.css";
 const Book = ({ book }) => {
   return (
     <div>
-      <Link to={`/book/${book.Id}`}>
-        <p>Title: {book.title}</p>
-        <p>Genre: {book.genre}</p>
-        <p>Author: {book.author}</p>
+      <Link className={styles["books"]} to={`/book/${book.Id}`}>
+        <p className="book-title">
+          <strong>Title:</strong> {book.title}
+        </p>
+        <p className="book-genre">
+          <strong>Genre:</strong> {book.genre}
+        </p>
+        <p className="book-author">
+          <strong>Author:</strong> {book.author}
+        </p>
       </Link>
     </div>
   );
