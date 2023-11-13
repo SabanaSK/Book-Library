@@ -1,7 +1,5 @@
 .home-container {
-  display: flex;
-  margin-left: 10%;
-  font-family: var(--font-family);
+  text-align: center;
 }
 
 .main-content {
@@ -12,24 +10,24 @@
 .heading-container {
   background-color: var(--navbar);
   border-radius: 10px;
-  width: 30%;
-  height: auto;
-  margin-bottom: 1em;
+  width: 50%;
+  height: 100%;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  margin-bottom: 2em;
   margin-right: auto;
   margin-left: auto;
   color: var(--white);
-  font-weight: bold;
-  font-size: 1.5rem;
+  font-family: var(--font-family);
 }
 
 .welcome-heading {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--white);
+  color: var(--darker-purple);
   font-weight: bold;
   font-size: 1.2rem;
-  background-color: var(--darker-purple);
   border-radius: 10px;
   padding-top: 0.1rem;
   width: 40%;

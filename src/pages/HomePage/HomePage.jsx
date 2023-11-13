@@ -5,6 +5,7 @@ import { getCurrentUser } from "../../services/userServices";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BookListHomePage from "../../components/BooksComponent/BookListHomePage/BookListHomePage";
+
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -49,7 +50,7 @@ const HomePage = () => {
     <div className={styles["home-container"]}>
       <Navbar />
       <div className={styles["main-content"]}>
-        <p className={styles["heading-container"]}>Home Page</p>
+        <h1 className={styles["heading-container"]}>Home Page</h1>
         <p className={styles["welcome-heading"]}>Welcome to Book Library</p>
         <BookListHomePage />
       </div>
