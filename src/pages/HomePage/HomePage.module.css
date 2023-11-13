@@ -1,8 +1,37 @@
 .home-container {
   display: flex;
+  margin-left: 10%;
+  font-family: var(--font-family);
 }
 
 .main-content {
   flex-grow: 1;
-  padding: 20px; 
+  padding: 20px;
+}
+
+.heading-container {
+  background-color: var(--navbar);
+  border-radius: 10px;
+  width: 30%;
+  height: auto;
+  margin-bottom: 1em;
+  margin-right: auto;
+  margin-left: auto;
+  color: var(--white);
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.welcome-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-weight: bold;
+  font-size: 1.2rem;
+  background-color: var(--darker-purple);
+  border-radius: 10px;
+  padding-top: 0.1rem;
+  width: 40%;
+  margin-left: 30%;
 }

@@ -49,10 +49,10 @@ const HomePage = () => {
     <div className={styles["home-container"]}>
       <Navbar />
       <div className={styles["main-content"]}>
-        <p>Home Page</p>
-        <p>Welcome to Book Library</p>
+        <p className={styles["heading-container"]}>Home Page</p>
+        <p className={styles["welcome-heading"]}>Welcome to Book Library</p>
+        <BookListHomePage />
       </div>
-      <BookListHomePage />
     </div>
   );
 };

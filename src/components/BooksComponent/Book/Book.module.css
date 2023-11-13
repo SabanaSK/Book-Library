@@ -1,0 +1,9 @@
+.books {
+  text-decoration: none;
+}
+
+.book-title strong,
+.book-genre strong,
+.book-author strong {
+  font-weight: bold;
+}

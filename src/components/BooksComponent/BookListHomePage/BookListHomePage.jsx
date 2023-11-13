@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getAllBooks } from "../../../services/bookServices";
 import Book from "../Book/Book";
-
+import styles from "./BookListHomePage.module.css";
 const BookListHomePage = () => {
   const [books, setBooks] = useState([]);
 
@@ -15,9 +15,9 @@ const BookListHomePage = () => {
       });
   }, []);
   return (
-    <div>
+    <div className={styles["book-list"]}>
       {books.map((book) => (
-        <div key={book.Id}>
+        <div key={book.Id} className={styles["book-item"]}>
           <Book book={book} />
         </div>
       ))}
