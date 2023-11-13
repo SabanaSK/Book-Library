@@ -1,6 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Input from "../../ui/Input";
 import { createBooks } from "../../services/bookServices";
+import { useNavigate } from "react-router-dom";
+import { getCurrentUser } from "../../../services/userServices";
+import Loading from "../../ui/Loading/Loading";
+
 const CreateBookPage = () => {
   const [newBook, setNewBook] = useState({
     id: "",
@@ -16,6 +20,49 @@ const CreateBookPage = () => {
   });
   const [successMessage, setSuccessMessage] = useState("");
   const formRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    initializePage();
+  }, []);
+
+  const initializePage = async () => {
+    setIsLoading(true);
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      setIsLoading(false);
+      navigate("/");
+      return;
+    }
+    await validateToken(token);
+    setIsLoading(false);
+  };
+
+  const validateToken = async (token) => {
+    try {
+      const response = await getCurrentUser(token);
+      if (response.data.user.role == "admin") {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    } catch (error) {
+      console.error("Failed to fetch current user:", error);
+      setIsAuthenticated(false);
+    }
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!isAuthenticated) {
+    navigate("/");
+    return null;
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewBook((prevState) => ({

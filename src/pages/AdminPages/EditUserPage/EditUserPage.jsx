@@ -99,12 +99,12 @@ const EditUserPage = () => {
   };
 
   const handleCancelDelete = () => {
-    setShowDeleteConfirm(false); // Simply hide the confirmation modal
+    setShowDeleteConfirm(false);
   };
 
   return (
     <div>
-      <Link className={styles["goback-button"]} to={`/`}>
+      <Link className={styles["goback-button"]} to={`/adminUsers`}>
         <p> ← Go Back</p>
       </Link>
       <div className={styles["edit-user-container"]}>
