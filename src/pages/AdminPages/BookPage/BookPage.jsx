@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { getBookById } from "../../../services/bookServices";
 import { useEffect, useState } from "react";
 import Loading from "../../../components/ui/Loading/Loading";
 import { getCurrentUser, autoLogin } from "../../../services/userServices";
+import styles from "./BookPage.module.css";
 
 const BookPage = () => {
   const { bookId } = useParams();
@@ -24,7 +25,7 @@ const BookPage = () => {
 
   useEffect(() => {
     initializePage();
-  },[]);
+  }, []);
 
   const initializePage = async () => {
     setIsLoading(true);
@@ -74,9 +75,16 @@ const BookPage = () => {
 
   return (
     <div>
-      <h2>{book.title}</h2>
-      <p>{book.genre}</p>
-      <p>{book.author}</p>
+      <Link className={styles["goback-button"]} to={`/home`}>
+        <p> ← Go Back</p>
+      </Link>
+      <div className={styles["container"]}>
+        <h2 className={styles["header"]}>{book.title}</h2>
+        <div className={styles["details"]}>
+          <p className={styles["detail"]}>Genre: {book.genre}</p>
+          <p className={styles["detail"]}>Author: {book.author}</p>
+        </div>
+      </div>
     </div>
   );
 };

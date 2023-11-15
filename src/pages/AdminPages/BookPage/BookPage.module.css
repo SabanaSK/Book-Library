@@ -1,0 +1,36 @@
+.goback-button{
+  text-decoration: none;
+  font-size: 30px;
+  font-family: var(--font-family);
+  text-align: left;
+  color: var(--hover-text);
+}
+
+.goback-button :hover{
+  color:var(--background-button);
+  transform: scale(1.1);
+  transform-origin: top left;
+}
+
+.container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px #0000001a;
+  background: #fff;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.details {
+  margin-bottom: 1rem;
+}
+
+.detail {
+  font-size: 1rem;
+  color: #555;
+}
