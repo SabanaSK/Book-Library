@@ -24,7 +24,9 @@ const ForgotPassword = () => {
     try {
       const response = await forgotPassword(email);
       if (response.status === 200) {
-        setMessage("Invitation sent successfully.");
+        setMessage(
+          "If your email address is registered with us, you will receive a password reset link shortly."
+        );
         setEmail("");
       } else {
         setError("Failed to send invitation.");
