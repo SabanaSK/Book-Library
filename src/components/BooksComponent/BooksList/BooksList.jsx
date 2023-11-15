@@ -24,9 +24,9 @@ const BookList = () => {
   };
 
   return (
-    <div className={styles["books-container"]}>
+    <div className={styles["books-list"]}>
       {books.map((book) => (
-        <div key={book.Id}>
+        <div key={book.Id} className={styles["book-item"]}>
           <Book book={book} />
           <DeleteBook
             bookId={book.Id}

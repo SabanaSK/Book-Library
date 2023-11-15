@@ -4,10 +4,15 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 1rem;
-  display: block;
-  margin-bottom: 1rem;
-  width: 30%;
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem auto 1rem;
   transition: box-shadow 0.3s ease-in-out;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+  width: 100%;
+  max-width: 250px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .books:hover {
@@ -17,6 +22,8 @@
 .book-title,
 .book-genre,
 .book-author {
-  margin: 0.5rem 0;
-  font-size: 1rem;
+  margin: 0;
+  padding-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: #333;
 }
