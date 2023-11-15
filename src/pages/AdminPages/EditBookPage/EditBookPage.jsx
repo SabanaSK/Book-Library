@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getBookById, editBooks } from "../../../services/bookServices";
 import Input from "../../../components/ui/Input/Input";
 import Loading from "../../../components/ui/Loading/Loading";
-import { getCurrentUser } from "../../../services/userServices";
+import { getCurrentUser, autoLogin } from "../../../services/userServices";
 
 const EditBookPage = () => {
   const { bookId } = useParams();
@@ -37,12 +37,27 @@ const EditBookPage = () => {
     setIsLoading(true);
     const token = localStorage.getItem("accessToken");
     if (!token) {
-      setIsLoading(false);
-      navigate("/");
-      return;
+      await tryAutologin();
     }
     await validateToken(token);
     setIsLoading(false);
+  };
+
+  const tryAutologin = async () => {
+    try {
+      const response = await autoLogin();
+      setIsLoading(false);
+      setIsAuthenticated(true);
+      const newToken = response.data.accessToken;
+      localStorage.setItem("accessToken", newToken);
+      return;
+    } catch (autoLoginError) {
+      setIsLoading(false);
+      setIsAuthenticated(false);
+      localStorage.removeItem("accessToken");
+      navigate("/");
+      return Promise.reject(autoLoginError);
+    }
   };
 
   const validateToken = async (token) => {

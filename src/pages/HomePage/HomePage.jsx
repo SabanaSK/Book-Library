@@ -1,7 +1,7 @@
 import Navbar from "../../components/ui/navbar/navbar";
 import styles from "./HomePage.module.css";
 import Loading from "../../components/ui/Loading/Loading";
-import { getCurrentUser } from "../../services/userServices";
+import { getCurrentUser, autoLogin } from "../../services/userServices";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BookListHomePage from "../../components/BooksComponent/BookListHomePage/BookListHomePage";
@@ -19,12 +19,27 @@ const HomePage = () => {
     setIsLoading(true);
     const token = localStorage.getItem("accessToken");
     if (!token) {
-      setIsLoading(false);
-      navigate("/");
-      return;
+      await tryAutologin();
     }
     await validateToken(token);
     setIsLoading(false);
+  };
+
+  const tryAutologin = async () => {
+    try {
+      const response = await autoLogin();
+      setIsLoading(false);
+      setIsAuthenticated(true);
+      const newToken = response.data.accessToken;
+      localStorage.setItem("accessToken", newToken);
+      return;
+    } catch (autoLoginError) {
+      setIsLoading(false);
+      setIsAuthenticated(false);
+      localStorage.removeItem("accessToken");
+      navigate("/");
+      return Promise.reject(autoLoginError);
+    }
   };
 
   const validateToken = async (token) => {

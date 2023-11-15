@@ -6,6 +6,7 @@ import {
   updateUser,
   deleteUser,
   getCurrentUser,
+  autoLogin
 } from "../../../services/userServices";
 import styles from "./EditUserPage.module.css";
 import DeleteConfirmationModal from "../../../components/UsersComponent/DeleteConfirmation/DeleteConfrimation";
@@ -40,12 +41,27 @@ const EditUserPage = () => {
     setIsLoading(true);
     const token = localStorage.getItem("accessToken");
     if (!token) {
-      setIsLoading(false);
-      navigate("/");
-      return;
+      await tryAutologin();
     }
     await validateToken(token);
     setIsLoading(false);
+  };
+
+  const tryAutologin = async () => {
+    try {
+      const response = await autoLogin();
+      setIsLoading(false);
+      setIsAuthenticated(true);
+      const newToken = response.data.accessToken;
+      localStorage.setItem("accessToken", newToken);
+      return;
+    } catch (autoLoginError) {
+      setIsLoading(false);
+      setIsAuthenticated(false);
+      localStorage.removeItem("accessToken");
+      navigate("/");
+      return Promise.reject(autoLoginError);
+    }
   };
 
   const validateToken = async (token) => {

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import Input from "../../../components/ui/Input/Input";
 import { createBooks } from "../../../services/bookServices";
 import Loading from "../../../components/ui/Loading/Loading";
-import { getCurrentUser } from "../../../services/userServices";
+import { getCurrentUser, autoLogin } from "../../../services/userServices";
 import { useNavigate } from "react-router";
 
 const CreateBookPage = () => {
@@ -26,18 +26,33 @@ const CreateBookPage = () => {
 
   useEffect(() => {
     initializePage();
-  },[]);
+  }, []);
 
   const initializePage = async () => {
     setIsLoading(true);
     const token = localStorage.getItem("accessToken");
     if (!token) {
-      setIsLoading(false);
-      navigate("/");
-      return;
+      await tryAutologin();
     }
     await validateToken(token);
     setIsLoading(false);
+  };
+
+  const tryAutologin = async () => {
+    try {
+      const response = await autoLogin();
+      setIsLoading(false);
+      setIsAuthenticated(true);
+      const newToken = response.data.accessToken;
+      localStorage.setItem("accessToken", newToken);
+      return;
+    } catch (autoLoginError) {
+      setIsLoading(false);
+      setIsAuthenticated(false);
+      localStorage.removeItem("accessToken");
+      navigate("/");
+      return Promise.reject(autoLoginError);
+    }
   };
 
   const validateToken = async (token) => {
