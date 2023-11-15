@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { deleteBooks } from "../../../services/bookServices";
+import styles from "./DeleteBook.module.css";
 
 const DeleteBook = ({ bookId, bookTitle, onDeleteSuccess }) => {
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
@@ -26,12 +27,20 @@ const DeleteBook = ({ bookId, bookTitle, onDeleteSuccess }) => {
 
   return (
     <div>
-      <button onClick={handleDeleteClick}>Delete</button>
+      <button onClick={handleDeleteClick} className={styles["delete-button"]}>
+        Delete
+      </button>
       {isConfirmingDelete && (
         <div>
-          <p>Are you sure you want to delete {bookTitle}?</p>
-          <button onClick={confirmDelete}>Confirm Delete</button>
-          <button onClick={cancelDelete}>Cancel</button>
+          <p className={styles["confirm-message"]}>
+            Are you sure you want to delete {bookTitle}?
+          </p>
+          <button onClick={confirmDelete} className={styles["delete-button"]}>
+            Confirm Delete
+          </button>
+          <button onClick={cancelDelete} className={styles["cancel-button"]}>
+            Cancel
+          </button>
         </div>
       )}
     </div>
