@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { inviteUserByEmail } from "../../../services/userServices";
 import styles from "./InviteUser.module.css";
+
 const InviteUserPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -16,7 +17,6 @@ const InviteUserPage = () => {
       const response = await inviteUserByEmail(username, email);
       if (response.status === 200) {
         setSuccess("Invitation sent successfully.");
-        // Optionally reset the form
         setUsername("");
         setEmail("");
       } else {
