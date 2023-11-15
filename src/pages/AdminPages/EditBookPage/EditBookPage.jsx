@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { getBookById, editBooks } from "../../../services/bookServices";
 import Input from "../../../components/ui/Input/Input";
 import Loading from "../../../components/ui/Loading/Loading";
 import { getCurrentUser, autoLogin } from "../../../services/userServices";
+import styles from "./EditBookPage.module.css";
 
 const EditBookPage = () => {
   const { bookId } = useParams();
@@ -21,7 +22,6 @@ const EditBookPage = () => {
   useEffect(() => {
     getBookById(bookId)
       .then((res) => {
-        console.log(res.data);
         setBook(res.data);
       })
       .catch((err) => {
@@ -31,7 +31,7 @@ const EditBookPage = () => {
 
   useEffect(() => {
     initializePage();
-  },[]);
+  }, []);
 
   const initializePage = async () => {
     setIsLoading(true);
@@ -104,11 +104,10 @@ const EditBookPage = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Sending this data to the server:", book);
     if (validateForm()) {
       editBooks(bookId, book)
         .then(() => {
-          navigate("/admin");
+          navigate("/adminBooks");
         })
         .catch((err) => {
           console.error("Error updating book:", err);
@@ -118,39 +117,56 @@ const EditBookPage = () => {
 
   return (
     <div>
-      <h2>Edit Book</h2>
-      <form onSubmit={handleSubmit}>
-        <Input
-          label="Title"
-          type="text"
-          name="title"
-          value={book.title}
-          onChange={handleChange}
-          placeholder="Enter book title"
-        />
-        {errors.title && <p className="error">{errors.title}</p>}
+      <Link className={styles["goback-button"]} to={`/adminBooks`}>
+        <p> ← Go Back</p>
+      </Link>
+      <div className={styles["edit-book-container"]}>
+        <h2 className={styles["edit-book-header"]}>Edit Book</h2>
+        <form onSubmit={handleSubmit}>
+          <Input
+            label="Title"
+            type="text"
+            name="title"
+            value={book.title}
+            onChange={handleChange}
+            placeholder="Enter book title"
+            className={styles["input-field"]}
+          />
+          {errors.title && (
+            <p className={styles["error-message"]}>{errors.title}</p>
+          )}
 
-        <Input
-          label="Genre"
-          type="text"
-          name="genre"
-          value={book.genre}
-          onChange={handleChange}
-          placeholder="Enter book genre"
-        />
-        {errors.genre && <p className="error">{errors.genre}</p>}
+          <Input
+            label="Genre"
+            type="text"
+            name="genre"
+            value={book.genre}
+            onChange={handleChange}
+            placeholder="Enter book genre"
+            className={styles["input-field"]}
+          />
+          {errors.genre && (
+            <p className={styles["error-message"]}>{errors.genre}</p>
+          )}
 
-        <Input
-          label="Author"
-          type="text"
-          name="author"
-          value={book.author}
-          onChange={handleChange}
-          placeholder="Enter author name"
-        />
-        {errors.author && <p className="error">{errors.author}</p>}
-        <button type="submit">Update Book</button>
-      </form>
+          <Input
+            label="Author"
+            type="text"
+            name="author"
+            value={book.author}
+            onChange={handleChange}
+            placeholder="Enter author name"
+            className={styles["input-field"]}
+          />
+          {errors.author && (
+            <p className={styles["error-message"]}>{errors.author}</p>
+          )}
+
+          <button type="submit" className={styles["submit-button"]}>
+            Update Book
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

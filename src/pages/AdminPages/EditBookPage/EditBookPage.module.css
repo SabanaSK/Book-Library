@@ -1,0 +1,64 @@
+.goback-button{
+  text-decoration: none;
+  font-size: 30px;
+  font-family: var(--font-family);
+  text-align: left;
+  color: var(--hover-text);
+}
+
+.goback-button :hover{
+  color:var(--background-button);
+  transform: scale(1.1);
+  transform-origin: top left;
+}
+
+.edit-book-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px #0d0d0d1a;
+  background: var(--white);
+}
+
+.edit-book-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: bold;
+}
+
+.input-field {
+  width: 100%;
+  padding: .5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.error-message {
+  color: #d9534f; 
+  margin-bottom: 1rem;
+}
+
+.submit-button {
+  background-color: var(--darker-purple); 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.submit-button:hover {
+  background-color: #4cae4c; 
+}
