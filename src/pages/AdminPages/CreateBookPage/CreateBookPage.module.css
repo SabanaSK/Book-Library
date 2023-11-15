@@ -12,7 +12,7 @@
   transform-origin: top left;
 }
 
-.edit-book-container {
+.create-book-container {
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
@@ -21,14 +21,18 @@
   background: var(--white);
 }
 
-.edit-book-header {
+.header {
   text-align: center;
   margin-bottom: 2rem;
 }
 
-
 .error-message {
   color: #d9534f; 
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  color: #4cae4c; 
   margin-bottom: 1rem;
 }
 

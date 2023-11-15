@@ -130,7 +130,6 @@ const EditBookPage = () => {
             value={book.title}
             onChange={handleChange}
             placeholder="Enter book title"
-            className={styles["input-field"]}
           />
           {errors.title && (
             <p className={styles["error-message"]}>{errors.title}</p>
@@ -143,7 +142,6 @@ const EditBookPage = () => {
             value={book.genre}
             onChange={handleChange}
             placeholder="Enter book genre"
-            className={styles["input-field"]}
           />
           {errors.genre && (
             <p className={styles["error-message"]}>{errors.genre}</p>
@@ -156,7 +154,6 @@ const EditBookPage = () => {
             value={book.author}
             onChange={handleChange}
             placeholder="Enter author name"
-            className={styles["input-field"]}
           />
           {errors.author && (
             <p className={styles["error-message"]}>{errors.author}</p>

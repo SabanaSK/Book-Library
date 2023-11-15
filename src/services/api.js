@@ -29,13 +29,12 @@ instance.interceptors.response.use(
         if (!originalRequest._retry) {
           originalRequest._retry = true;
           try {
-            const response = await autoLogin(); // this is the full response object
-            const newToken = response.data.accessToken; // extract the token from the response
-            localStorage.setItem("accessToken", newToken); // set the token in localStorage
-            originalRequest.headers["Authorization"] = newToken; // update the authorization header
+            const response = await autoLogin(); 
+            const newToken = response.data.accessToken; 
+            localStorage.setItem("accessToken", newToken); 
+            originalRequest.headers["Authorization"] = newToken; 
             return instance(originalRequest);
           } catch (autoLoginError) {
-            /* Refresh token went out And being send here */
             localStorage.removeItem("accessToken");
             window.location.href = "/";
             return Promise.reject(autoLoginError);

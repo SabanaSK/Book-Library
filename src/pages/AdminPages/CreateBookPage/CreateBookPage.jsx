@@ -3,7 +3,8 @@ import Input from "../../../components/ui/Input/Input";
 import { createBooks } from "../../../services/bookServices";
 import Loading from "../../../components/ui/Loading/Loading";
 import { getCurrentUser, autoLogin } from "../../../services/userServices";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router-dom";
+import styles from "./CreateBookPage.module.css";
 
 const CreateBookPage = () => {
   const navigate = useNavigate();
@@ -114,56 +115,69 @@ const CreateBookPage = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const response = await createBooks(newBook);
-        console.log(response);
+        await createBooks(newBook);
         setSuccessMessage("Book created successfully!");
         resetform();
       } catch (error) {
-        console.error("Error creating book:", error);
-        setSuccessMessage("");
+        if (error.response && error.response.status === 409) {
+          setSuccessMessage(error.response.data.message);
+        } else {
+          console.error("Error creating book:", error);
+          setSuccessMessage("");
+        }
       }
-    } else {
-      console.log("Form has errors");
     }
   };
 
   return (
-    <div className="create-book-page">
-      <h2>Create Book</h2>
-      <form onSubmit={handleSubmit} ref={formRef}>
-        <Input
-          label="Title"
-          type="text"
-          name="title"
-          onChange={handleInputChange}
-          placeholder="Enter book title"
-          value={newBook.title}
-        />
-        {errors.title && <p className="error">{errors.title}</p>}
-        <Input
-          label="Genre"
-          type="text"
-          name="genre"
-          onChange={handleInputChange}
-          placeholder="Enter book genre"
-          value={newBook.genre}
-        />
-        {errors.genre && <p className="error">{errors.genre}</p>}
-        <Input
-          label="Author"
-          type="text"
-          name="author"
-          onChange={handleInputChange}
-          placeholder="Enter author name"
-          value={newBook.author}
-        />
-        {errors.author && <p className="error">{errors.author}</p>}
-        <button type="submit">Create Book</button>
-        {/* Display the success message if it is set */}
-        {successMessage && (
-          <div className="success-message">{successMessage}</div>
-        )}
-      </form>
+    <div>
+      <Link className={styles["goback-button"]} to={`/adminBooks`}>
+        <p> ← Go Back</p>
+      </Link>
+      <div className={styles["create-book-container"]}>
+        <h2 className={styles["header"]}>Create Book</h2>
+        <form onSubmit={handleSubmit} ref={formRef}>
+          <Input
+            label="Title"
+            type="text"
+            name="title"
+            onChange={handleInputChange}
+            placeholder="Enter book title"
+            value={newBook.title}
+          />
+          {errors.title && (
+            <p className={styles["error-message"]}>{errors.title}</p>
+          )}
+          <Input
+            label="Genre"
+            type="text"
+            name="genre"
+            onChange={handleInputChange}
+            placeholder="Enter book genre"
+            value={newBook.genre}
+          />
+          {errors.genre && (
+            <p className={styles["error-message"]}>{errors.genre}</p>
+          )}
+          <Input
+            label="Author"
+            type="text"
+            name="author"
+            onChange={handleInputChange}
+            placeholder="Enter author name"
+            value={newBook.author}
+          />
+          {errors.author && (
+            <p className={styles["error-message"]}>{errors.author}</p>
+          )}
+          {successMessage && (
+            <div className={styles["success-message"]}>{successMessage}</div>
+          )}
+          <button type="submit" className={styles["submit-button"]}>
+            Create Book
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
