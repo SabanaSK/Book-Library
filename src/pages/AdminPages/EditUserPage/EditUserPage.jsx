@@ -6,7 +6,7 @@ import {
   updateUser,
   deleteUser,
   getCurrentUser,
-  autoLogin
+  autoLogin,
 } from "../../../services/userServices";
 import styles from "./EditUserPage.module.css";
 import DeleteConfirmationModal from "../../../components/UsersComponent/DeleteConfirmation/DeleteConfrimation";
@@ -94,7 +94,7 @@ const EditUserPage = () => {
   const handleUpdateRole = async () => {
     const response = await updateUser(userId, { role });
     if (response.data.message === "Role updated successfully") {
-      console.log("Update role success", response.data);
+      navigate("/adminUsers");
     } else {
       console.log("fail");
     }
@@ -144,6 +144,9 @@ const EditUserPage = () => {
           value={role}
           className={styles["select-role"]}
         >
+          <option value="" disabled>
+            Choose Role
+          </option>
           <option value="user">User</option>
           <option value="admin">Admin</option>
         </select>
