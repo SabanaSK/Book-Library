@@ -69,7 +69,7 @@ const BookPage = () => {
   }
 
   if (!isAuthenticated) {
-    navigate("/");
+    navigate("/home");
     return null;
   }
 

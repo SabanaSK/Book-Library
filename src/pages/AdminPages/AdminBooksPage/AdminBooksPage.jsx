@@ -61,7 +61,7 @@ const AdminBooksPage = () => {
   }
 
   if (!isAuthenticated) {
-    navigate("/");
+    navigate("/home");
     return null;
   }
 

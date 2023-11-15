@@ -79,7 +79,7 @@ const EditBookPage = () => {
   }
 
   if (!isAuthenticated) {
-    navigate("/");
+    navigate("/home");
     return null;
   }
 

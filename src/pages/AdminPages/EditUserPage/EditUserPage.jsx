@@ -83,7 +83,7 @@ const EditUserPage = () => {
   }
 
   if (!isAuthenticated) {
-    navigate("/");
+    navigate("/home");
     return null;
   }
 

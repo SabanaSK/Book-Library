@@ -75,7 +75,7 @@ const CreateBookPage = () => {
   }
 
   if (!isAuthenticated) {
-    navigate("/");
+    navigate("/home");
     return null;
   }
 

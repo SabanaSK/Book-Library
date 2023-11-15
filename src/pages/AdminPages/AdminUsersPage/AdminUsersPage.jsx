@@ -62,7 +62,7 @@ const AdminUsersPage = () => {
   }
 
   if (!isAuthenticated) {
-    navigate("/");
+    navigate("/home");
     return null;
   }
 
