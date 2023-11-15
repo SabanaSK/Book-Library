@@ -4,15 +4,23 @@ export const validationUsername = (username) => {
 };
 
 export const validatePassword = (password) => {
-  const minLength = 5;
-  if (password.length < minLength) {
-    return "Password is required";
+  const minLength = 8;
+  const maxLength = 20;
+
+  if (password.length < minLength || password.length > maxLength) {
+    return "Password must be between 8 and 20 characters long.";
   }
   if (!/[a-z]/.test(password)) {
     return "Password must contain at least one lowercase letter.";
   }
+  if (!/[A-Z]/.test(password)) {
+    return "Password must contain at least one uppercase letter.";
+  }
   if (!/[0-9]/.test(password)) {
     return "Password must contain at least one number.";
+  }
+  if (!/[@$!%*?&_]/.test(password)) {
+    return "Password must contain at least one special character (@, $, !, %, *, ?, &, or _).";
   }
   return "";
 };
